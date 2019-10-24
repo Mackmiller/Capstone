@@ -9,14 +9,14 @@
 <!-- Create a div where the graph will take place -->
 <div id="my_dataviz"></div>
 
-<iframe src="https://giphy.com/embed/h1nzFFCoLyDLJAAeuN" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/h1nzFFCoLyDLJAAeuN">via GIPHY</a></p>
+<!-- <iframe src="https://giphy.com/embed/h1nzFFCoLyDLJAAeuN" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/h1nzFFCoLyDLJAAeuN">via GIPHY</a></p>
 <iframe src="https://giphy.com/embed/JsQNWYSRgKVqFw2veQ" width="480" height="268" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/JsQNWYSRgKVqFw2veQ">via GIPHY</a></p>
-<iframe src="https://giphy.com/embed/hrXxZL5uUgXEnKe57f" width="480" height="198" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/hrXxZL5uUgXEnKe57f">via GIPHY</a></p>
+<iframe src="https://giphy.com/embed/hrXxZL5uUgXEnKe57f" width="480" height="198" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/hrXxZL5uUgXEnKe57f">via GIPHY</a></p> -->
 <script>
 
 
 // set the dimensions and margins of the graph
-var margin = {top: 20, right: 30, bottom: 40, left: 90},
+var margin = {top: 20, right: 30, bottom: 40, left: 300},
     width = 460 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
@@ -30,11 +30,15 @@ var svg = d3.select("#my_dataviz")
           "translate(" + margin.left + "," + margin.top + ")");
 
 // Parse the Data
-d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum_header.csv", function(data) {
+//d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum_header.csv", function(data) {
+d3.csv("https://raw.githubusercontent.com/Mackmiller/DDJ/master/data/top_pieces.csv", function(data) {
+
+//d3.csv("https://github.com/Mackmiller/DDJ/blob/master/data/top_pieces.csv", function(data) {
+
 //d3.csv("data/top_pieces.csv").then(function(data) {
   // Add X axis
   var x = d3.scaleLinear()
-    .domain([0, 13000])
+    .domain([0, 50])
     .range([ 0, width]);
   svg.append("g")
     .attr("transform", "translate(0," + height + ")")
