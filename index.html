@@ -1,10 +1,16 @@
 
-<!-- Code from d3-graph-gallery.com -->
-<!DOCTYPE html>
-<meta charset="utf-8">
 
+
+
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+  <meta charset="UTF-8" />
 <!-- Load d3.js -->
+<link rel="stylesheet" href="css/style.css">
 <script src="https://d3js.org/d3.v4.js"></script>
+</head>
+<body>
 
 <!-- Create a div where the graph will take place -->
 <div id="my_dataviz"></div>
@@ -13,13 +19,10 @@
 <iframe src="https://giphy.com/embed/JsQNWYSRgKVqFw2veQ" width="480" height="268" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/JsQNWYSRgKVqFw2veQ">via GIPHY</a></p>
 <iframe src="https://giphy.com/embed/hrXxZL5uUgXEnKe57f" width="480" height="198" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/hrXxZL5uUgXEnKe57f">via GIPHY</a></p> -->
 <script>
-
-
 // set the dimensions and margins of the graph
 var margin = {top: 20, right: 30, bottom: 40, left: 200},
     width = 460 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
-
 // append the svg object to the body of the page
 var svg = d3.select("#my_dataviz")
   .append("svg")
@@ -29,14 +32,8 @@ var svg = d3.select("#my_dataviz")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-// Parse the Data
-//d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum_header.csv", function(data) {
 d3.csv("https://raw.githubusercontent.com/Mackmiller/DDJ/master/data/top_pieces.csv", function(data) {
 
-//d3.csv("https://github.com/Mackmiller/DDJ/blob/master/data/top_pieces.csv", function(data) {
-
-//d3.csv("data/top_pieces.csv").then(function(data) {
-  // Add X axis
   var x = d3.scaleLinear()
     .domain([0, 50])
     .range([ 0, width]);
@@ -50,10 +47,13 @@ d3.csv("https://raw.githubusercontent.com/Mackmiller/DDJ/master/data/top_pieces.
   // Y axis
   var y = d3.scaleBand()
     .range([ 0, height ])
+
     .domain(data.map(function(d) { return d.Country; }))
     .padding(.1);
+
   svg.append("g")
-    .call(d3.axisLeft(y))
+    .attr("class", "axisWhite")
+    .call(d3.axisLeft(y).tickSize(0))
 
 
   //Bars
@@ -66,14 +66,18 @@ d3.csv("https://raw.githubusercontent.com/Mackmiller/DDJ/master/data/top_pieces.
     .attr("width", function(d) { return x(d.Value); })
     .attr("height", y.bandwidth() )
     .attr("fill", "#69b3a2")
-
-
     // .attr("x", function(d) { return x(d.Country); })
     // .attr("y", function(d) { return y(d.Value); })
     // .attr("width", x.bandwidth())
     // .attr("height", function(d) { return height - y(d.Value); })
     // .attr("fill", "#69b3a2")
-
 })
 
+g
+  .attr("transform", `translate(${margin.left},0)`)
+  .call(d3.axisLeft(y).ticks(8, "$.0f"))
+  .call(g => g.select(".domain").remove())
+
 </script>
+</body>
+</html>
