@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+  <meta charset="UTF-8" />
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+  <style>
+
+      body {
+        color: #222;
+      }
+
+      circle {
+        fill: rgba(204,60,45,0.8);
+        stroke: rgb(204,60,45);
+        stroke-width: 2px;
+      }
+
+      text {
+        font-family: sans-serif;
+        font-size: 10px;
+      }
+
+      .data-line {
+        fill: none;
+        stroke: rgb(169,38,28);
+        stroke-width: 1px;
+      }
+
+      .mean-line {
+        fill: none;
+        stroke: rgb(204,60,45);
+        stroke-dasharray: 4,4;
+      }
+
+      .note-line {
+        stroke: #666;
+        stroke-width: 1px;
+      }
+
+      .grid line {
+        stroke: lightgrey;
+        stroke-opacity: 0.7;
+        shape-rendering: crispEdges;
+      }
+
+      .grid path {
+        stroke-width: 0;
+      }
+
+    </style>
+    <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+          </u>
+    </nav>
+
+  <body>
+
+
+    <div id="content">
+<script src="js/d3.min.js"></script>
+    <script>
+
+
+
+      d3.csv("data/movies_per_year.csv").then(function(data) {
+          var timeParser = d3.timeParse("%Y");
+
+          data.forEach(function(d) {
+            d.Date = timeParser(d.Date);
+            d.close = +d.close;
+          });
+
+
+
+          var w = 550,
+              h = 550;
+
+          var margin = {
+            top: 60,
+            right: 60,
+            bottom: 60,
+            left: 60
+          };
+
+          var svg = d3.select("body").append("svg");
+
+          svg.attr("width", w - margin.right)
+             .attr("height", h);
+
+          var xScale = d3.scaleTime()
+            .domain(d3.extent(data, function(d) { return d.Date } ))
+            .range([0, (w - margin.left - margin.right)]);
+
+          var yScale = d3.scaleLinear()
+            .domain(d3.extent(data, function(d) { return d.close }))
+            .range([(h - margin.top - margin.bottom), 0])
+
+          var line = d3.line()
+            .x(function(d) { return xScale(d.Date); } )
+            .y(function(d) { return yScale(d.close); } );
+
+          svg.append("g")
+             .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+             .append("path")
+             .datum(data)
+             .attr("class", "data-line")
+             .attr("d", line);
+
+          var xAxis = d3.axisBottom()
+            .scale(xScale)
+            .ticks(10);
+
+
+
+          var yAxis = d3.axisLeft()
+            .scale(yScale)
+            .ticks(4).tickSize(0);
+
+          svg.append("g")
+            .attr("transform", "translate(" + margin.left + "," + (h - margin.bottom) + ")")
+            .attr("class", "xaxis")
+            .call(xAxis);
+
+          svg.append("g")
+             .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+             .attr("class", "yaxis")
+             .call(yAxis);
+
+
+
+           svg.append("text")
+             .attr("class", "y label")
+             .attr("text-anchor", "end")
+             .attr("y", 6)
+             .attr("dy", ".75em")
+             .attr("transform", "rotate(-90)")
+             .attr("x", -230)
+             .text("Number of Movies");
+
+
+
+//circles
+            /*    var circles = svg.selectAll("circle")
+                                .data(data)
+                                .enter()
+                                .filter(function(d) {
+                                    if (ImportantDates.indexOf(TimeLayout(d.Date))>-1) {
+                                          return d;
+                                      }
+                                  })
+                                .append("circle")
+                                .attr("cx", function(d){
+                                  return xScale(d.Date)+60;
+                                })
+                                .attr("cy", function(d){
+                                  return yScale(d.close)+60;
+                                })
+                                .attr("r", 5)
+                                .attr("fill","red");
+
+//text
+                                svg.append("text")
+                                   .attr("x", 75)
+                                   .attr("y", 730)
+                                   .text("IPO: August 2004");
+
+                                   svg.append("text")
+                                      .attr("x", 175)
+                                      .attr("y", 615)
+                                      .text("Acquired YouTube: October 2006");
+
+                                      svg.append("text")
+                                         .attr("x", 265)
+                                         .attr("y", 650)
+                                         .text("Android: September 2008");
+
+                                         svg.append("text")
+                                            .attr("x", 550)
+                                            .attr("y", 170)
+                                            .text("New York Times exposé: October 2018");
+
+*/
+
+
+        });
+
+      </script>
+  </body>
+</html>
