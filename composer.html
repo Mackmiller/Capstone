@@ -11,59 +11,92 @@
           <li><a href="index.html">Home</a></li>
         </u>
   </nav>
+  <style>
+  .axis path,
+  .axis line {
+      fill: none;
+      stroke: #eee;
+      shape-rendering: crispEdges;
+  }
 
-<div id="my_dataviz"></div>
+  .axis text {
+      font-family: sans-serif;
+      font-size: 11px;
+  }
 
+  .loading {
+      font-family: sans-serif;
+      font-size: 15px;
+  }
+
+  .circle {
+      fill: #222;
+  }
+  </style>
+<div id="punchcard"></div>
 <script>
-// set the dimensions and margins of the graph
-var margin = {top: 20, right: 30, bottom: 40, left: 200},
-    width = 460 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
-// append the svg object to the body of the page
-var svg = d3.select("#my_dataviz")
-  .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
+var w = 940,
+    h = 300,
+    pad = 20,
+    left_pad = 100,
+    Data_url = 'data/piece_per_year.json';
 
-d3.csv("https://raw.githubusercontent.com/Mackmiller/DDJ/master/data/top_composers.csv", function(data) {
+var svg = d3.select("#punchcard")
+        .append("svg")
+        .attr("width", w)
+        .attr("height", h);
 
-//x axis
-  var x = d3.scaleLinear()
-    .domain([0, 300])
-    .range([ 0, width]);
-  svg.append("g")
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x).ticks(4))
-    .selectAll("text")
-      .attr("transform", "translate(-10,0)rotate(-45)")
-      .style("text-anchor", "end");
+var x = d3.scale.linear().domain([0, 23]).range([left_pad, w-pad]),
+    y = d3.scale.linear().domain([0, 6]).range([pad, h-pad*2]);
 
-  // Y axis
-  var y = d3.scaleBand()
-    .range([ 0, height ])
-    .domain(data.map(function(d) { return d.Composer; }))
-    .padding(.1);
+var xAxis = d3.svg.axis().scale(x).orient("bottom")
+        .ticks(24)
+        .tickFormat(function (d, i) {
+            var m = (d &gt; 12) ? "p" : "a";
+            return (d%12 == 0) ? 12+m :  d%12+m;
+        }),
+    yAxis = d3.svg.axis().scale(y).orient("left")
+        .ticks(7)
+        .tickFormat(function (d, i) {
+            return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][d];
+        });
 
-  svg.append("g")
-    .attr("class", "axisWhite")
-    .call(d3.axisLeft(y).tickSize(0))
+svg.append("g")
+    .attr("class", "axis")
+    .attr("transform", "translate(0, "+(h-pad)+")")
+    .call(xAxis);
 
+svg.append("g")
+    .attr("class", "axis")
+    .attr("transform", "translate("+(left_pad-pad)+", 0)")
+    .call(yAxis);
 
-  //Bars
-  svg.selectAll("myRect")
-    .data(data)
-    .enter()
-    .append("rect")
-    .attr("x", x(0) )
-    .attr("y", function(d) { return y(d.Composer); })
-    .attr("width", function(d) { return x(d.Value); })
-    .attr("height", y.bandwidth() )
-    .attr("fill", "#A9261C")
-})
+svg.append("text")
+    .attr("class", "loading")
+    .text("Loading ...")
+    .attr("x", function () { return w/2; })
+    .attr("y", function () { return h/2-5; });
 
+d3.json(Data_url, function (punchcard_data) {
+    var max_r = d3.max(punchcard_data.map(
+                       function (d) { return d[2]; })),
+        r = d3.scale.linear()
+            .domain([0, d3.max(punchcard_data, function (d) { return d[2]; })])
+            .range([0, 12]);
+
+    svg.selectAll(".loading").remove();
+
+    svg.selectAll("circle")
+        .data(punchcard_data)
+        .enter()
+        .append("circle")
+        .attr("class", "circle")
+        .attr("cx", function (d) { return x(d[1]); })
+        .attr("cy", function (d) { return y(d[0]); })
+        .transition()
+        .duration(800)
+        .attr("r", function (d) { return r(d[2]); });
+});
 </script>
 </body>
 </html>
