@@ -3,22 +3,46 @@
 <meta charset="utf-8">
   <meta charset="UTF-8" />
 <link rel="stylesheet" href="css/style.css">
-<script src="https://d3js.org/d3.v4.js"></script>
+<script src="js/d3.v4.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dimple/2.3.0/dimple.latest.min.js"></script>
-</head>
-</head>
-<body>
 
+
+</head>
+<style>
+  body {
+   font: 14px sans-serif;
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: black;
+  }
+
+  .axis path { stroke: none; }
+</style>
+
+  <nav>
+        <ul>
+          <li><a href="composer.html">Composer</a></li>
+          <li><a href="linechart.html">Linechart</a></li>
+
+        </u>
+  </nav>
 <div id="piece_viz"></div>
 <div id="composer_viz"></div>
 <div id="linechart"></div>
+<div id="beechart_viz"></div>
+<body>
+
 
 
 <script>
+
 // set the dimensions and margins of the graph
 var margin = {top: 20, right: 00, bottom: 40, left: 205},
-    width = 460 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+    width = 900 - margin.left - margin.right,
+    height = 700 - margin.top - margin.bottom;
 // append the svg object to the body of the page
 var svg = d3.select("#piece_viz")
   .append("svg")
@@ -370,7 +394,7 @@ var general=[
 
 
 
-	var svg3 = dimple.newSvg("#linechart","900", "400");
+	var svg3 = dimple.newSvg("#linechart","950", "400");
 	var myChart = new dimple.chart(svg3, general);
     //myChart.setBounds(80, 40, "75%", "60%");
 	var x = myChart.addTimeAxis("x", "Year","%Y-%m-%d","%Y");
@@ -394,7 +418,7 @@ y.ticks = 5;
 
 /*myChart.setMargins("50%", "10px", "10px", "20px");*/
 /*myChart.setMargins("20%", "10px", "50%", "20px");*/
-myChart.setMargins("10%", "10px", "40%", "20px");
+myChart.setMargins("10%", "10px", "25%", "20px");
 
 x.lineWeight = 0;
 
@@ -408,6 +432,118 @@ x.lineWeight = 0;
 
 
 </script>
+<script src="js/d3-v3.js"></script>
+<script src="js/force-chart.js"></script>
+
+ <script>
+   var margin = { top: 10, left: 100, bottom: 30, right: 50 },
+       width = 800 - margin.left - margin.right,
+       height = 600 - margin.top - margin.bottom;
+
+ var x = function(d) { return d.rating; },
+       y = function(d) { return d.genre; },
+       area = function(d) { return d.budget; };
+
+   var xScale = d3v3.scale.linear()
+         .domain([1930, 2020])
+         .range([0, width]),
+       yScale = d3v3.scale.ordinal()
+         .domain(["Rigoletto: La donna e mobile", "Toccata and Fugue in D minor", "Nocturne No. 2 in E-flat major", "Ride of the Valkyries", "Pomp and Circumstance Military March No.1", "Messiah: Hallelujah", "William Tell: Overture", "A Midsummer Night's Dream: Wedding March", "Lohengrin: Bridal Chorus", "The Blue Danube"])
+         .rangeBands([height, 0]),
+       areaScale = d3v3.scale.linear().range([0, 125]),
+       colorScale = d3v3.scale.quantize()
+        .domain([1930, 2020])
+        .range(["#a9261c"]);
+
+   var xValue = function(d) { return xScale(x(d)); },
+       yValue = function(d) { return yScale(y(d)) + yScale.rangeBand()/2; },
+       rValue = function(d) {
+         var A = 60;
+         return Math.sqrt(A / Math.PI);
+       },
+       colorValue = function(d) { return colorScale(x(d)); };
+
+   var xAxis = d3v3.svg.axis().scale(xScale).orient("bottom").tickFormat(d3v3.format('d')),
+       yAxis = d3v3.svg.axis().scale(yScale).orient("left");
+
+   var bubbleChart = d3v3.forceChart()
+    .size([width, height])
+    .x(xValue)
+    .y(yValue)
+    .r(rValue)
+    .xGravity(3)    // make the x-position more accurate
+    .yGravity(1/3); // ...and the y-position more flexible
+
+    var svg4 = d3v3.select("#beechart_viz")
+   .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+   d3v3.json("data/movies.json", function(error, movies) {
+     if (error) throw error;
+
+     areaScale.domain([0,d3v3.max(movies, area)]);
+
+     // Draw axes
+     svg4.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+      .append("text")
+        .attr("dx", width)
+        .attr("dy", -6)
+        .style("text-anchor", "end")
+
+
+     svg4.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+      .selectAll(".tick line")
+        .attr("x2", width)
+        .attr("stroke-dasharray", "1, 2")
+        .style("stroke", "lightgrey");
+
+     // Draw legend
+
+
+     // Draw bubbles
+     svg4.append("g").call(bubbleChart, movies)
+        .attr("class", "bubbles")
+      .selectAll(".node").append("circle")
+        .attr("r", function(d) { return d.r0; })
+        .attr("fill", colorValue)
+
+   });
+
+   function legend(selection) {
+     var legendData = [
+       { budget: 200000000, text: "$200 million", dy: 0 },
+       { budget: 100000000, text: "$100 million", dy: 20 },
+       { budget: 50000000, text: "$50 million", dy: 40 },
+       { budget: 10000000, text: "$10 million", dy: 60 }
+     ];
+
+
+
+     legend.selectAll(".item").data(legendData)
+      .enter().append("g")
+        .attr("transform", function(d) { return "translate(0," + d.dy + ")"; })
+        .each(function(d) {
+          d3v3.select(this).append("circle")
+            .attr("r", rValue(d))
+            .style("fill", "none")
+            .style("stroke", "slategrey");
+          d3v3.select(this).append("text")
+            .attr("dx", 10)
+            .attr("dy", 4)
+            .text(d.text);
+        });
+   }
+ </script>
+
+
 
 
 </body>
