@@ -1,132 +1,185 @@
-<html>
-  <head>
-    <style>
-      body {
-       font: 14px sans-serif;
+<!DOCTYPE html>
+<meta charset='utf-8'>
+<title>Sankey Gradients</title>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/4.4.0/d3.min.js'></script>
+<script src='js/sankey.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.19.0/babel.min.js'></script>
+<style>
+.node rect {
+  cursor: move;
+  fill-opacity: .9;
+  shape-rendering: crispEdges;
+}
+
+.node text {
+  pointer-events: none;
+  font-family: Helvetica;
+  font-size: 12px;
+}
+</style>
+<body>
+<div id='chart'>
+<script lang='babel' type='text/babel'>
+const units = '';
+const margin = {top: 10, right: 10, bottom: 10, left: 10};
+const width = 960 - margin.left - margin.right;
+const height = 300 - margin.top - margin.bottom;
+
+// zero decimal places
+const formatNumber = d3.format(',.0f');
+
+const format = d => `${formatNumber(d)} ${units}`;
+
+const color = d3.scaleOrdinal()
+  .domain([
+  'Adventure',
+    'Comedy',
+    'Horror',
+    'Drama',
+    'Fantasy',
+    'Romance',
+    'Sci Fi'
+  ])
+  .range([
+    '#90eb9d',
+    '#f9d057',
+    '#f29e2e',
+    '#00ccbc',
+    '#56307E',
+    '#d7191c',
+    '#534635'
+  ]);
+
+d3.select('#chart')
+  .style('visibility', 'visible');
+
+// append the svg canvas to the page
+const svg = d3.select('#chart').append('svg')
+  .attr('width', width + margin.left + margin.right)
+  .attr('height', height + margin.top + margin.bottom)
+  .append('g')
+    .attr('transform', `translate(${margin.left},${margin.top})`);
+
+// set the sankey diagram properties
+const sankey = d3.sankey()
+  .nodeWidth(6)
+  .nodePadding(10)
+  .size([width, height]);
+
+const path = sankey.link();
+
+// append a defs (for definition) element to your SVG
+const defs = svg.append('defs');
+
+// load the data
+d3.json('data/data.json', (error, graph) => {
+  console.log('graph', graph);
+  sankey
+    .nodes(graph.nodes)
+    .links(graph.links)
+    .layout(13); // any value > 13 breaks the link gradient
+
+  // add in the links
+  const link = svg.append('g').selectAll('.link')
+    .data(graph.links)
+    .enter().append('path')
+      .attr('class', 'link')
+      .attr('d', path)
+      .style('stroke-width', d => Math.max(1, d.dy))
+      .style('fill', 'none')
+      .style('stroke-opacity', 0.18)
+      .sort((a, b) => b.dy - a.dy)
+      .on('mouseover', function() {
+        d3.select(this).style('stroke-opacity', 0.5);
+      })
+      .on('mouseout', function() {
+        d3.select(this).style('stroke-opacity', 0.2);
+      });
+
+  // add the link titles
+  link.append('title')
+    .text(d => `${d.source.name} → ${d.target.name}\n${format(d.value)}`);
+
+  // add in the nodes
+  const node = svg.append('g').selectAll('.node')
+    .data(graph.nodes)
+    .enter().append('g')
+      .attr('class', 'node')
+      .attr('transform', d => `translate(${d.x},${d.y})`)
+      .call(d3.drag()
+        .subject(d => d)
+        .on('start', function() {
+          this.parentNode.appendChild(this); })
+        .on('drag', dragmove));
+
+  // add the rectangles for the nodes
+  node.append('rect')
+    .attr('height', d => d.dy)
+    .attr('width', sankey.nodeWidth())
+    .style('fill', d => {
+      if(color.domain().indexOf(d.name) > -1){
+        return d.color = color(d.name);
+      } else {
+        return d.color = '#ccc'; //ccc
       }
+    })
+    .append('title')
+      .text(d => `${d.name}\n${format(d.value)}`);
 
-      .axis path,
-      .axis line {
-        fill: none;
-        stroke: black;
-      }
+  // add in the title for the nodes
+  node.append('text')
+    .attr('x', -6)
+    .attr('y', d => d.dy / 2)
+    .attr('dy', '.35em')
+    .attr('text-anchor', 'end')
+    .attr('transform', null)
+    .text(d => d.name)
+    .filter(d => d.x < width / 2)
+      .attr('x', 6 + sankey.nodeWidth())
+      .attr('text-anchor', 'start');
 
-      .axis path { stroke: none; }
-    </style>
-  </head>
-  <body>
-    <div id="beechart_viz"></div>
+  // add gradient to links
+  link.style('stroke', (d, i) => {
+    console.log('d from gradient stroke func', d);
 
-    <script src="js/d3-v3.js"></script>
-   <script src="js/force-chart.js"></script>
+    // make unique gradient ids
+    const gradientID = `gradient${i}`;
 
-     <script>
-       var margin = { top: 10, left: 100, bottom: 30, right: 50 },
-           width = 800 - margin.left - margin.right,
-           height = 600 - margin.top - margin.bottom;
+    const startColor = d.source.color;
+    const stopColor = d.target.color;
 
-     var x = function(d) { return d.rating; },
-           y = function(d) { return d.genre; },
-           area = function(d) { return d.budget; };
+    console.log('startColor', startColor);
+    console.log('stopColor', stopColor);
 
-       var xScale = d3v3.scale.linear()
-             .domain([1930, 2020])
-             .range([0, width]),
-           yScale = d3v3.scale.ordinal()
-             .domain(["Rigoletto: La donna e mobile", "Toccata and Fugue in D minor", "Nocturne No. 2 in E-flat major", "Ride of the Valkyries", "Pomp and Circumstance Military March No.1", "Messiah: Hallelujah", "William Tell: Overture", "A Midsummer Night's Dream: Wedding March", "Lohengrin: Bridal Chorus", "The Blue Danube"])
-             .rangeBands([height, 0]),
-           areaScale = d3v3.scale.linear().range([0, 125]),
-           colorScale = d3v3.scale.quantize()
-            .domain([1930, 2020])
-            .range(["#a9261c"]);
+    const linearGradient = defs.append('linearGradient')
+        .attr('id', gradientID);
 
-       var xValue = function(d) { return xScale(x(d)); },
-           yValue = function(d) { return yScale(y(d)) + yScale.rangeBand()/2; },
-           rValue = function(d) {
-             var A = 60;
-             return Math.sqrt(A / Math.PI);
-           },
-           colorValue = function(d) { return colorScale(x(d)); };
+    linearGradient.selectAll('stop')
+      .data([
+          {offset: '10%', color: startColor },
+          {offset: '90%', color: stopColor }
+        ])
+      .enter().append('stop')
+      .attr('offset', d => {
+        console.log('d.offset', d.offset);
+        return d.offset;
+      })
+      .attr('stop-color', d => {
+        console.log('d.color', d.color);
+        return d.color;
+      });
 
-       var xAxis = d3v3.svg.axis().scale(xScale).orient("bottom").tickFormat(d3v3.format('d')),
-           yAxis = d3v3.svg.axis().scale(yScale).orient("left");
+    return `url(#${gradientID})`;
+  })
 
-       var bubbleChart = d3v3.forceChart()
-        .size([width, height])
-        .x(xValue)
-        .y(yValue)
-        .r(rValue)
-        .xGravity(3)    // make the x-position more accurate
-        .yGravity(1/3); // ...and the y-position more flexible
-
-        var svg4 = d3v3.select("#beechart_viz")
-       .append("svg")
-          .attr("width", width + margin.left + margin.right)
-          .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-       d3v3.json("data/movies.json", function(error, movies) {
-         if (error) throw error;
-
-         areaScale.domain([0,d3v3.max(movies, area)]);
-
-         // Draw axes
-         svg4.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0," + height + ")")
-            .call(xAxis)
-          .append("text")
-            .attr("dx", width)
-            .attr("dy", -6)
-            .style("text-anchor", "end")
-
-
-         svg4.append("g")
-            .attr("class", "y axis")
-            .call(yAxis)
-          .selectAll(".tick line")
-            .attr("x2", width)
-            .attr("stroke-dasharray", "1, 2")
-            .style("stroke", "lightgrey");
-
-         // Draw legend
-
-
-         // Draw bubbles
-         svg4.append("g").call(bubbleChart, movies)
-            .attr("class", "bubbles")
-          .selectAll(".node").append("circle")
-            .attr("r", function(d) { return d.r0; })
-            .attr("fill", colorValue)
-
-       });
-
-       function legend(selection) {
-         var legendData = [
-           { budget: 200000000, text: "$200 million", dy: 0 },
-           { budget: 100000000, text: "$100 million", dy: 20 },
-           { budget: 50000000, text: "$50 million", dy: 40 },
-           { budget: 10000000, text: "$10 million", dy: 60 }
-         ];
-
-
-
-         legend.selectAll(".item").data(legendData)
-          .enter().append("g")
-            .attr("transform", function(d) { return "translate(0," + d.dy + ")"; })
-            .each(function(d) {
-              d3v3.select(this).append("circle")
-                .attr("r", rValue(d))
-                .style("fill", "none")
-                .style("stroke", "slategrey");
-              d3v3.select(this).append("text")
-                .attr("dx", 10)
-                .attr("dy", 4)
-                .text(d.text);
-            });
-       }
-     </script>
-
-  </body>
+// the function for moving the nodes
+  function dragmove(d) {
+    d3.select(this).attr('transform',
+      `translate(${d.x = Math.max(0, Math.min(width - d.dx, d3.event.x))},${d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))})`);
+    sankey.relayout();
+    link.attr('d', path);
+  }
+});
+</script>
+</body>
 </html>
