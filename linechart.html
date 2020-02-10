@@ -17,12 +17,13 @@
   font-size: 12px;
 }
 </style>
+
 <body>
-<div id='chart'>
+<div id='sankey'>
 <script lang='babel' type='text/babel'>
 const units = '';
 const margin = {top: 10, right: 10, bottom: 10, left: 10};
-const width = 960 - margin.left - margin.right;
+const width = 750 - margin.left - margin.right;
 const height = 300 - margin.top - margin.bottom;
 
 // zero decimal places
@@ -32,13 +33,13 @@ const format = d => `${formatNumber(d)} ${units}`;
 
 const color = d3.scaleOrdinal()
   .domain([
-  'Adventure',
+  'Drama',
+    'Biography',
+    'Music',
     'Comedy',
-    'Horror',
-    'Drama',
+    'History',
     'Fantasy',
-    'Romance',
-    'Sci Fi'
+    'Thriller'
   ])
   .range([
     '#90eb9d',
@@ -46,7 +47,7 @@ const color = d3.scaleOrdinal()
     '#f29e2e',
     '#00ccbc',
     '#56307E',
-    '#d7191c',
+    '#E271C1',
     '#534635'
   ]);
 
@@ -54,7 +55,7 @@ d3.select('#chart')
   .style('visibility', 'visible');
 
 // append the svg canvas to the page
-const svg = d3.select('#chart').append('svg')
+const svg5 = d3.select('#sankey').append('svg')
   .attr('width', width + margin.left + margin.right)
   .attr('height', height + margin.top + margin.bottom)
   .append('g')
@@ -69,7 +70,7 @@ const sankey = d3.sankey()
 const path = sankey.link();
 
 // append a defs (for definition) element to your SVG
-const defs = svg.append('defs');
+const defs = svg5.append('defs');
 
 // load the data
 d3.json('data/data.json', (error, graph) => {
@@ -80,7 +81,7 @@ d3.json('data/data.json', (error, graph) => {
     .layout(13); // any value > 13 breaks the link gradient
 
   // add in the links
-  const link = svg.append('g').selectAll('.link')
+  const link = svg5.append('g').selectAll('.link')
     .data(graph.links)
     .enter().append('path')
       .attr('class', 'link')
@@ -101,7 +102,7 @@ d3.json('data/data.json', (error, graph) => {
     .text(d => `${d.source.name} → ${d.target.name}\n${format(d.value)}`);
 
   // add in the nodes
-  const node = svg.append('g').selectAll('.node')
+  const node = svg5.append('g').selectAll('.node')
     .data(graph.nodes)
     .enter().append('g')
       .attr('class', 'node')
@@ -120,7 +121,7 @@ d3.json('data/data.json', (error, graph) => {
       if(color.domain().indexOf(d.name) > -1){
         return d.color = color(d.name);
       } else {
-        return d.color = '#ccc'; //ccc
+        return d.color = '#A9261C'; //ccc
       }
     })
     .append('title')
