@@ -1,7 +1,44 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Raleway:100,200,300,400|Roboto:100');
 .axisWhite line{
   stroke: white;
 }
 
 .axisWhite path{
   stroke: white;
+}
+
+div {
+ font: 10.5px sans-serif;
+ display: flex;
+ justify-content: center;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: black;
+}
+
+.axis path { stroke: none; }
+
+.node rect {
+  cursor: move;
+  fill-opacity: .9;
+  shape-rendering: crispEdges;
+}
+
+.node text {
+  pointer-events: none;
+  font-family: Helvetica;
+  font-size: 10.5px;
+}
+
+p {
+  text-align: left;
+  font-family: 'Roboto', Arial, sans-serif;
+   margin-left: auto;
+   margin-right: auto;
+   width: 70px;
+   min-width: 600px;;
+
 }

@@ -8,54 +8,35 @@
 
 
 </head>
-<style>
-  body {
-   font: 10.5px sans-serif;
-  }
-
-  .axis path,
-  .axis line {
-    fill: none;
-    stroke: black;
-  }
-
-  .axis path { stroke: none; }
-
-  .node rect {
-    cursor: move;
-    fill-opacity: .9;
-    shape-rendering: crispEdges;
-  }
-
-  .node text {
-    pointer-events: none;
-    font-family: Helvetica;
-    font-size: 12px;
-  }
-</style>
 
   <nav>
         <ul>
           <li><a href="composer.html">Composer</a></li>
           <li><a href="linechart.html">Linechart</a></li>
-
         </u>
   </nav>
+  <body>
+
 <div id="piece_viz"></div>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 <div id="composer_viz"></div>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 <div id="linechart"></div>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 <div id="beechart_viz"></div>
-<div id='sankey'>
-<body>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<div id='sankey'></div>
+
 
 
 
 <script>
 
 // set the dimensions and margins of the graph
-var margin = {top: 20, right: 00, bottom: 40, left: 205},
+var margin = {top: 20, right: 0, bottom: 40, left: 155},
     width = 900 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+    height = 350 - margin.top - margin.bottom;
 // append the svg object to the body of the page
 var svg = d3.select("#piece_viz")
   .append("svg")
@@ -407,7 +388,7 @@ var general=[
 
 
 
-	var svg3 = dimple.newSvg("#linechart","950", "400");
+	var svg3 = dimple.newSvg("#linechart","1200", "400");
 	var myChart = new dimple.chart(svg3, general);
     //myChart.setBounds(80, 40, "75%", "60%");
 	var x = myChart.addTimeAxis("x", "Year","%Y-%m-%d","%Y");
@@ -431,7 +412,7 @@ y.ticks = 5;
 
 /*myChart.setMargins("50%", "10px", "10px", "20px");*/
 /*myChart.setMargins("20%", "10px", "50%", "20px");*/
-myChart.setMargins("10%", "10px", "25%", "20px");
+myChart.setMargins("300px", "10px", "18%", "20px");
 
 x.lineWeight = 0;
 
@@ -449,8 +430,8 @@ x.lineWeight = 0;
 <script src="js/force-chart.js"></script>
 
  <script>
-   var margin = { top: 10, left: 220, bottom: 30, right: 50 },
-       width = 800 - margin.left - margin.right,
+   var margin = { top: 10, left: 200, bottom: 30, right: 50 },
+       width = 1000 - margin.left - margin.right,
        height = 600 - margin.top - margin.bottom;
 
  var x = function(d) { return d.rating; },
@@ -560,8 +541,8 @@ x.lineWeight = 0;
  <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.19.0/babel.min.js'></script>
  <script lang='babel' type='text/babel'>
  const units = '';
- const margin = {top: 10, right: 10, bottom: 10, left: 10};
- const width = 750 - margin.left - margin.right;
+ const margin = {top: 10, right: 10, bottom: 10, left: 150};
+ const width = 840 - margin.left - margin.right;
  const height = 300 - margin.top - margin.bottom;
 
  // zero decimal places
