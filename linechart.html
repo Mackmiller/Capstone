@@ -1,119 +1,66 @@
 <!DOCTYPE html>
 <meta charset='utf-8'>
+<style>
+.static {
+  position:absolute;
+  background: white;
+}
 
+.static:hover {
+  opacity:0;
+}
+</style>
 
 <body>
-<div id="beechart_viz"></div>
-  <script src="js/d3-v3.js"></script>
-  <script src="js/force-chart.js"></script>
+<div class="grid-container">
+  <img class="static" src="gifs/1950s.png" height="100px" width="170px"><img class="active" src="gifs/1950s.png"  height="100px" width="170px">
+  <img class="static" src="img/glennmillerstory.png" height="100px" width="170px"><img class="active" src="gifs/glennmillerstory.gif"  height="100px" width="170px">
+  <img class="static" src="img/asummerplace.png" height="100px" width="170px"><img class="active" src="gifs/summerplace.gif"  height="100px" width="170px">
+</div>
+<div class="grid-container">
+  <img class="static" src="gifs/1960s.png" height="100px" width="170px"><img class="active" src="gifs/1960s.png"  height="100px" width="170px">
+  <img class="static" src="img/irmaladouce.png" height="100px" width="170px"><img class="active" src="gifs/irma.gif"  height="100px" width="170px">
+</div>
+<div class="grid-container">
+  <img class="static" src="gifs/1980s.png" height="100px" width="170px"><img class="active" src="gifs/1980s.png"  height="100px" width="170px">
+  <img class="static" src="img/privatebenjamin.png" height="100px" width="170px"><img class="active" src="gifs/privatebenjamin.gif"  height="100px" width="170px">
+  <img class="static" src="img/outofafrica.png" height="100px" width="170px"><img class="active" src="gifs/outofafrica.gif"  height="100px" width="170px">
+  <img class="static" src="img/blinddate.png" height="100px" width="170px"><img class="active" src="gifs/blinddate.gif"  height="100px" width="170px">
+  <img class="static" src="img/spaceballs.png" height="100px" width="170px"><img class="active" src="gifs/spaceballs.gif"  height="100px" width="170px">
+</div>
+<div class="grid-container">
+  <img class="static" src="gifs/blank.png" height="100px" width="170px"><img class="active" src="gifs/blank.png"  height="100px" width="170px">
+  <img class="static" src="img/beaches.png" height="100px" width="170px"><img class="active" src="gifs/beaches.gif"  height="100px" width="170px">
+  <img class="static" src="img/beetlejuice.png" height="100px" width="170px"><img class="active" src="gifs/beetlejuice.gif"  height="100px" width="170px">
+  <img class="static" src="img/chancesare.png" height="100px" width="170px"><img class="active" src="gifs/chancesare.gif"  height="100px" width="170px">
+  <img class="static" src="img/cousins.png" height="100px" width="170px"><img class="active" src="gifs/cousins.gif"  height="100px" width="170px">
+</div>
+<div class="grid-container">
+  <img class="static" src="gifs/blank.png" height="100px" width="170px"><img class="active" src="gifs/blank.png"  height="100px" width="170px">
+  <img class="static" src="img/licensetokill.png" height="100px" width="170px"><img class="active" src="gifs/licensetokill.gif"  height="100px" width="170px">
+  <img class="static" src="img/steelmagnolias.png" height="100px" width="170px"><img class="active" src="gifs/steelmagnolias.gif"  height="100px" width="170px">
+</div>
+<div class="grid-container">
+  <img class="static" src="gifs/1990s.png" height="100px" width="170px"><img class="active" src="gifs/1990s.png"  height="100px" width="170px">
+  <img class="static" src="img/gremlins2.png" height="100px" width="170px"><img class="active" src="gifs/gremlins2.gif"  height="100px" width="170px">
+  <img class="static" src="img/fatherofthebride.png" height="100px" width="170px"><img class="active" src="gifs/fatherofthebride.gif"  height="100px" width="170px">
+  <img class="static" src="img/aleagueoftheirown.png" height="100px" width="170px"><img class="active" src="gifs/leagueoftheirown.gif"  height="100px" width="170px">
+  <img class="static" src="img/addamsfamily.png" height="100px" width="170px"><img class="active" src="gifs/addamsvalues.gif"  height="100px" width="170px">
+</div>
+<div class="grid-container">
+  <img class="static" src="gifs/blank.png" height="100px" width="170px"><img class="active" src="gifs/blank.png"  height="100px" width="170px">
+  <img class="static" src="img/cemetaryclub.png" height="100px" width="170px"><img class="active" src="gifs/cemetaryclub.gif"  height="100px" width="170px">
+  <img class="static" src="img/robinhood.png" height="100px" width="170px"><img class="active" src="gifs/robinhood.gif"  height="100px" width="170px">
+  <img class="static" src="img/grumpieroldmen.png" height="100px" width="170px"><img class="active" src="gifs/grumpieroldmen.gif"  height="100px" width="170px">
+  <img class="static" src="img/boxer.png" height="100px" width="170px"><img class="active" src="gifs/boxer.gif"  height="100px" width="170px">
+</div>
+<div class="grid-container">
+  <img class="static" src="gifs/blank.png" height="100px" width="170px"><img class="active" src="gifs/blank.png"  height="100px" width="170px">
+  <img class="static" src="img/inandout.png" height="100px" width="170px"><img class="active" src="gifs/inandout.gif"  height="100px" width="170px">
+  <img class="static" src="img/vegasvacation.png" height="100px" width="170px"><img class="active" src="gifs/vegasvacation.gif"  height="100px" width="170px">
+  <img class="static" src="img/mafia.png" height="100px" width="170px"><img class="active" src="gifs/mafia.gif"  height="100px" width="170px">
+  <img class="static" src="img/nightatroxbury.png" height="100px" width="170px"><img class="active" src="gifs/nightatroxbury.gif"  height="100px" width="170px">
+</div>
 
-   <script>
-     var margin = { top: 10, left: 200, bottom: 30, right: 50 },
-         width = 1200 - margin.left - margin.right,
-         height = 600 - margin.top - margin.bottom;
-
-   var x = function(d) { return d.rating; },
-         y = function(d) { return d.genre; },
-         area = function(d) { return d.budget; };
-
-     var xScale = d3v3.scale.linear()
-           .domain([1930, 2020])
-           .range([0, width]),
-         yScale = d3v3.scale.ordinal()
-           .domain(["Rigoletto: La donna e mobile", "Toccata and Fugue in D minor", "Nocturne No. 2 in E-flat major", "Ride of the Valkyries", "Pomp and Circumstance", "Messiah: Hallelujah", "William Tell: Overture", "Wedding March", "Bridal Chorus", "The Blue Danube"])
-           .rangeBands([height, 0]),
-         areaScale = d3v3.scale.linear().range([0, 125]),
-         colorScale = d3v3.scale.quantize()
-          .domain([1930, 2020])
-          .range(["#a9261c"]);
-
-     var xValue = function(d) { return xScale(x(d)); },
-         yValue = function(d) { return yScale(y(d)) + yScale.rangeBand()/2; },
-         rValue = function(d) {
-           var A = 60;
-           return Math.sqrt(A / Math.PI);
-         },
-         colorValue = function(d) { return colorScale(x(d)); };
-
-     var xAxis = d3v3.svg.axis().scale(xScale).orient("bottom").tickFormat(d3v3.format('d')),
-         yAxis = d3v3.svg.axis().scale(yScale).orient("left");
-
-     var bubbleChart = d3v3.forceChart()
-      .size([width, height])
-      .x(xValue)
-      .y(yValue)
-      .r(rValue)
-      .xGravity(3)    // make the x-position more accurate
-      .yGravity(1/3); // ...and the y-position more flexible
-
-      var svg4 = d3v3.select("#beechart_viz")
-     .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-     d3v3.json("data/movies.json", function(error, movies) {
-       if (error) throw error;
-
-       areaScale.domain([0,d3v3.max(movies, area)]);
-
-       // Draw axes
-       svg4.append("g")
-          .attr("class", "x axis")
-          .attr("transform", "translate(0," + 550 + ")")
-          .call(xAxis)
-        .append("text")
-          .attr("dx", width)
-          .attr("dy", -6)
-          .style("text-anchor", "end")
-
-
-
-       svg4.append("g")
-          .attr("class", "y axis")
-          .call(yAxis)
-        .selectAll(".tick line")
-          .attr("x2", width)
-          .attr("stroke-dasharray", "1, 2")
-          .style("stroke", "lightgrey");
-
-       // Draw legend
-
-
-       // Draw bubbles
-       svg4.append("g").call(bubbleChart, movies)
-          .attr("class", "bubbles")
-        .selectAll(".node").append("circle")
-          .attr("r", function(d) { return d.r0; })
-          .attr("fill", colorValue)
-
-     });
-
-     function legend(selection) {
-       var legendData = [
-         { budget: 200000000, text: "$200 million", dy: 0 },
-         { budget: 100000000, text: "$100 million", dy: 20 },
-         { budget: 50000000, text: "$50 million", dy: 40 },
-         { budget: 10000000, text: "$10 million", dy: 60 }
-       ];
-
-
-
-       legend.selectAll(".item").data(legendData)
-        .enter().append("g")
-          .attr("transform", function(d) { return "translate(0," + d.dy + ")"; })
-          .each(function(d) {
-            d3v3.select(this).append("circle")
-              .attr("r", rValue(d))
-              .style("fill", "none")
-              .style("stroke", "slategrey");
-            d3v3.select(this).append("text")
-              .attr("dx", 10)
-              .attr("dy", 4)
-              .text(d.text);
-          });
-     }
-   </script>
 </body>
 </html>
