@@ -3,100 +3,62 @@
 <meta charset="utf-8">
   <meta charset="UTF-8" />
 <link rel="stylesheet" href="css/style.css">
-<script src="https://d3js.org/d3.v4.js"></script>
 </head>
 <body>
-  <nav>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-        </u>
-  </nav>
-  <style>
-  .axis path,
-  .axis line {
-      fill: none;
-      stroke: #eee;
-      shape-rendering: crispEdges;
-  }
 
-  .axis text {
-      font-family: sans-serif;
-      font-size: 11px;
-  }
+  <body>
+    <audio id="audio1" src="1o.mp3"></audio>
+    <audio id="audio2" src="2o.mp3"></audio>
+    <div>Track one: <span id="playStatus1">stopped</span></div>
+    <div>Track two: <span id="playStatus2">stopped</span></div>
+    <div>Listening to: <span id="currTrack">nothing</span></div>
+    <button id="start">Start the tracks rolling</button>
+    <button id="toggle" disabled>Toggle</button>
 
-  .loading {
-      font-family: sans-serif;
-      font-size: 15px;
-  }
+   <script>
+     var startButton = document.getElementById("start");
+     var toggleButton = document.getElementById("toggle");
+     var track1 = document.getElementById("audio1");
+     var track2 = document.getElementById("audio2");
+     var status1 = document.getElementById("playStatus1");
+     var status2 = document.getElementById("playStatus2");
+     var currTrack = document.getElementById("currTrack");
 
-  .circle {
-      fill: #222;
-  }
-  </style>
-<div id="punchcard"></div>
-<script>
-var w = 940,
-    h = 300,
-    pad = 20,
-    left_pad = 100,
-    Data_url = 'data/piece_per_year.json';
+     function updatePlayStatus(track, status, t){
+       if (track.paused == true){
+         status.innerHTML = "stopped";
+         clearInterval(t);
+         startButton.disabled = false;
+         toggleButton.disabled = true;
+         currTrack.innerHTML = "nothing";
+       }
+     }
 
-var svg = d3.select("#punchcard")
-        .append("svg")
-        .attr("width", w)
-        .attr("height", h);
+     startButton.onclick = function(){
+       this.disabled = true;
+       track1.play();
+       track2.play();
+       track2.muted = true;
+       status1.innerHTML = "playing";
+       status2.innerHTML = "playing";
+       currTrack.innerHTML = "Track 1";
+       toggleButton.disabled = false;
 
-var x = d3.scale.linear().domain([0, 23]).range([left_pad, w-pad]),
-    y = d3.scale.linear().domain([0, 6]).range([pad, h-pad*2]);
+       var t1 = window.setInterval(function() { updatePlayStatus(track1, status1, t1) }, 500);
+       var t2 = window.setInterval(function() { updatePlayStatus(track2, status2, t2) }, 500);
+     }
 
-var xAxis = d3.svg.axis().scale(x).orient("bottom")
-        .ticks(24)
-        .tickFormat(function (d, i) {
-            var m = (d &gt; 12) ? "p" : "a";
-            return (d%12 == 0) ? 12+m :  d%12+m;
-        }),
-    yAxis = d3.svg.axis().scale(y).orient("left")
-        .ticks(7)
-        .tickFormat(function (d, i) {
-            return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][d];
-        });
-
-svg.append("g")
-    .attr("class", "axis")
-    .attr("transform", "translate(0, "+(h-pad)+")")
-    .call(xAxis);
-
-svg.append("g")
-    .attr("class", "axis")
-    .attr("transform", "translate("+(left_pad-pad)+", 0)")
-    .call(yAxis);
-
-svg.append("text")
-    .attr("class", "loading")
-    .text("Loading ...")
-    .attr("x", function () { return w/2; })
-    .attr("y", function () { return h/2-5; });
-
-d3.json(Data_url, function (punchcard_data) {
-    var max_r = d3.max(punchcard_data.map(
-                       function (d) { return d[2]; })),
-        r = d3.scale.linear()
-            .domain([0, d3.max(punchcard_data, function (d) { return d[2]; })])
-            .range([0, 12]);
-
-    svg.selectAll(".loading").remove();
-
-    svg.selectAll("circle")
-        .data(punchcard_data)
-        .enter()
-        .append("circle")
-        .attr("class", "circle")
-        .attr("cx", function (d) { return x(d[1]); })
-        .attr("cy", function (d) { return y(d[0]); })
-        .transition()
-        .duration(800)
-        .attr("r", function (d) { return r(d[2]); });
-});
-</script>
+     toggleButton.onclick = function(){
+       if (track1.muted == true){
+         track1.muted = false;
+         track2.muted = true;
+         currTrack.innerHTML = "Track 1";
+       } else {
+         track2.muted = false;
+         track1.muted = true;
+         currTrack.innerHTML = "Track 2";
+       }
+     }
+   </script>
 </body>
 </html>
