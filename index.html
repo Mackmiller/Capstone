@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
 <link rel="stylesheet" href="css/style.css">
 <script src="js/d3.v4.js"></script>
+<script src="js/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dimple/2.3.0/dimple.latest.min.js"></script>
 
 
@@ -14,7 +15,13 @@
         <img src="img/capstone_header.png"/>
       </div>
 <p>We remember music from movies almost as often as we recall particular scenes from movies; music has a unique ability to heighten the emotional impact of a motion picture. As early as the 1890s, before audible dialogue was introduced into film, a pianist, organist or small orchestra would accompany silent films. Today’s movie soundtracks feature a wide range of original compositions, prewritten classical pieces and numerous music genres including pop and rock. This article will explore a data set that contains prewritten classical music that has appeared in the movies since the 1930s. Hopefully this article will provide a bit more clarity on some of the top classical pieces that may have been recognizable but nameless in the past!</p>
+<img src="img/button.png" onclick="playAudio('music/bluedanube.mp3')">
+<img src="img/play.png" style="height: 85px; width: 85px" id="imgClickAndChange" onclick="changeImage()"  />
+
 <h2>Top Classical Pieces in the Movies 1930-2019</h2>
+<audio controls>
+  <source src="music/bluedanube.mp3" type="audio/mpeg">
+</audio>
 <div class="visualization" id="piece_viz"></div>
 <h2>Top Classical Composers in the Movies 1930-2019</h2>
 <div class="visualization" id="composer_viz"></div>
@@ -183,6 +190,10 @@ d3.csv("https://raw.githubusercontent.com/Mackmiller/DDJ/master/data/top_pieces.
     .attr("height", y.bandwidth() )
     .attr("fill", "#A9261C")
 })
+
+function playAudio(url) {
+  new Audio(url).play();
+}
 
 
 var svg2 = d3.select("#composer_viz")
@@ -802,8 +813,19 @@ x.lineWeight = 0;
      link.attr('d', path);
    }
  });
- </script>
 
+ function changeImage() {
+
+        if (document.getElementById("imgClickAndChange").src == "img/play.png")
+        {
+            document.getElementById("imgClickAndChange").src = "img/pause.png";
+        }
+        else
+        {
+            document.getElementById("imgClickAndChange").src = "img/play.png";
+        }
+    }
+ </script>
 
 
 </body>
