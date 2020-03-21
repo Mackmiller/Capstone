@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
 <link rel="stylesheet" href="css/style.css">
 <script src="js/d3.v4.js"></script>
-<script src="js/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dimple/2.3.0/dimple.latest.min.js"></script>
 
 
@@ -15,13 +14,96 @@
         <img src="img/capstone_header.png"/>
       </div>
 <p>We remember music from movies almost as often as we recall particular scenes from movies; music has a unique ability to heighten the emotional impact of a motion picture. As early as the 1890s, before audible dialogue was introduced into film, a pianist, organist or small orchestra would accompany silent films. Today’s movie soundtracks feature a wide range of original compositions, prewritten classical pieces and numerous music genres including pop and rock. This article will explore a data set that contains prewritten classical music that has appeared in the movies since the 1930s. Hopefully this article will provide a bit more clarity on some of the top classical pieces that may have been recognizable but nameless in the past!</p>
-<img src="img/button.png" onclick="playAudio('music/bluedanube.mp3')">
-<img src="img/play.png" style="height: 85px; width: 85px" id="imgClickAndChange" onclick="changeImage()"  />
+<div class="div14">
+	<h2>Choose Your Own Soundtrack</h2>
+</div>
+<div class="parent">
+
+		<div class="div2">
+		<section id="movie1" onclick="setMedia(0,4)">
+      <img src="img/shining.png" width="150" height="200">
+		</section>
+	  </div>
+
+		<div class="div3">
+		<section id="movie2" onclick="setMedia(2,6)">
+			<img src="img/graduate.png" width="150" height="200">
+		</section>
+	  </div>
+
+		<div class="div4">
+		<section id="movie3" onclick="setMedia(1,5)">
+			<img src="img/oz.png" width="150" height="200">
+		</section>
+	  </div>
+
+		<div class="div5">
+		<section id="movie4" onclick="setMedia(3,7)">
+			<img src="img/vendetta.png" width="150" height="200">
+		</section>
+		</div>
+
+
+		<br>
+		<div class="div1">
+		<section class="videoPlayerContainer">
+			<video src="video/shining2.mp4" autoplay="" loop="" muted id="videoPlayer">
+			</video>
+		</section>
+  	</div>
+
+		<section class="audioPlayerContainer">
+			<audio src="music/shining.mp3" autoplay="" loop="" id="audioPlayer">
+			</audio>
+		</section>
+
+
+		<!-- <audio controls>
+			<source src="music/bluedanube.mp3" type="audio/mpeg">
+		</audio>
+		<img src="img/button.png" onclick="playAudio('music/bluedanube.mp3')">
+ -->
+
+
+			<div class="div6">
+			<img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" class="musicButtonPlay" id="blueDanube" data-index="0" onclick="controlMusic('blueDanube',0)" />
+		  </div>
+			<div class="div7">
+			<p>The Blue Danube</p>
+			<p>By Richard Strauss II</p>
+		  </div>
+
+			<div class="div8">
+			<img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" class="musicButtonPlay" id="valkyries" data-index="0" onclick="controlMusic('valkyries',1)" />
+	  	</div>
+			<div class="div9">
+			<p>Ride of the Valkyries</p>
+			<p>By Richard Wagner</p>
+		  </div>
+
+
+
+			<div class="div10">
+		  <img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" class="musicButtonPlay" id="nocturne" data-index="0" onclick="controlMusic('nocturne',2)" />
+	   	</div>
+			<div class="div11">
+			<p>Nocturne Op.9 No.2</p>
+			<p>By Frédéric Chopin</p>
+		  </div>
+
+			<div class="div12">
+			<img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" class="musicButtonPlay" id="toccata" data-index="0" onclick="controlMusic('toccata',3)" />
+			</div>
+			<div class="div13">
+			<p>Toccata and Fugue</p>
+			<p>By J.S. Bach</p>
+			</div>
+
+
+	</div>
 
 <h2>Top Classical Pieces in the Movies 1930-2019</h2>
-<audio controls>
-  <source src="music/bluedanube.mp3" type="audio/mpeg">
-</audio>
+
 <div class="visualization" id="piece_viz"></div>
 <h2>Top Classical Composers in the Movies 1930-2019</h2>
 <div class="visualization" id="composer_viz"></div>
@@ -814,17 +896,93 @@ x.lineWeight = 0;
    }
  });
 
- function changeImage() {
 
-        if (document.getElementById("imgClickAndChange").src == "img/play.png")
-        {
-            document.getElementById("imgClickAndChange").src = "img/pause.png";
-        }
-        else
-        {
-            document.getElementById("imgClickAndChange").src = "img/play.png";
-        }
-    }
+ </script>
+ <script>
+ // these are the things we'll control with clicking and tapping
+     let videoPlayer = document.getElementById("videoPlayer");
+     let audioPlayer = document.getElementById("audioPlayer");
+
+     audioPlayer.pause();
+     videoPlayer.pause();
+     // videos are inside the video folder; music is inside the music folder
+     let video = ["shining2.mp4", "oz2.mp4", "graduate2.mp4", "vendetta2.mp4"];
+     let music = ["bluedanube.mp3", "valkyries.mp3", "nocturne.mp3", "toccata.mp3", "shining.mp3", "oz.mp3", "graduate.mp3", "vendetta.mp3"]
+
+     // viewer can click on different movies to change what they will see. these are references to the thing they'll click.
+     // var movie1 = document.getElementById("movie1");
+     // var movie2 = document.getElementById("movie2");
+     // var movie3 = document.getElementById("movie3");
+
+     // var audio1 = document.getElementById("audio1");
+
+     function changeVideo(number) {
+       // change source to desired video
+       videoPlayer.setAttribute("src", "video/" + video[number]);
+     }
+
+     function changeMusic(number) {
+       // change source to desired path
+       audioPlayer.setAttribute("src", "music/" + music[number]);
+       videoPlayer.currentTime = 0;
+     }
+
+     function setMedia(videoNumber, musicNumber) {
+       changeMusic(musicNumber);
+       changeVideo(videoNumber);
+     }
+
+     function changeImage() {
+       // if you wanted to make this work for any button you'd probably turn the id you use into a variable.
+       let button = document.getElementById("bigPlayButton");
+       let IsButtonOn = button.dataset.index;
+       // console.log(button, IsButtonOn);
+       if (IsButtonOn == "0") {
+         // button is off. turn it on and switch to pause.
+         button.setAttribute("data-index", "1");
+         button.src = "https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/pause.png";
+         // you can add changeMusic here for when you click on a button that's not the one actively playing. If you do that, you also need to know which position in the array-- that's gonna be another variable
+         audioPlayer.play();
+         videoPlayer.play();
+       } else {
+         // button is on. turn it off and switch to play.
+         button.setAttribute("data-index", "0");
+         button.src = "https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png";
+         audioPlayer.pause();
+         videoPlayer.pause();
+       }
+     }
+
+     function resetPlay() {
+       let buttons = document.getElementsByClassName("musicButtonPlay");
+       for (var i = 0; i < buttons.length; i++) {
+         buttons[i].setAttribute("src", "https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png");
+       }
+     }
+
+     function controlMusic(buttonID, musicNumber) {
+       // if you wanted to make this work for any button you'd probably turn the id you use into a variable.
+       let button = document.getElementById(buttonID);
+       let IsButtonOn = button.dataset.index;
+       console.log(buttonID, IsButtonOn, music[musicNumber]);
+
+       if (IsButtonOn == "0") {
+         // button is off. turn it on and switch to pause. turn off all other buttons.
+         resetPlay();
+         button.setAttribute("data-index", "1");
+         button.src = "https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/pause.png";
+         changeMusic(musicNumber)
+         // you can add changeMusic here for when you click on a button that's not the one actively playing. If you do that, you also need to know which position in the array-- that's gonna be another variable
+         audioPlayer.play();
+         videoPlayer.play();
+       } else {
+         // button is on. turn it off and switch to play.
+         button.setAttribute("data-index", "0");
+         button.src = "https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png";
+         audioPlayer.pause();
+         videoPlayer.pause();
+       }
+     }
  </script>
 
 

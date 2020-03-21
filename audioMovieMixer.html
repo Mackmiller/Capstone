@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+		<style>
+			.videoPlayerContainer {
+				width: 600px;
+			}
+
+			video {
+				width: 100%;
+			}
+
+			.musicButtonPlay {
+				height: 85px;
+				width: 85px;
+			}
+
+		</style>
+	</head>
+
+	<body>
+		<section id="movie1" onclick="setMedia(0,0)">Switch to first video</section>
+		<section id="movie2" onclick="setMedia(1,1)">Switch to second video</section>
+		<section id="movie3" onclick="setMedia(2,2)">Switch to third video</section>
+		<section id="audio1" onclick="changeMusic(0)">Switch to first audio</section>
+		<section id="audio2" onclick="changeMusic(1)">Switch to second audio</section>
+		<section id="audio3" onclick="changeMusic(2)">Switch to third audio</section>
+		<br>
+		<section class="videoPlayerContainer">
+			<video src="video/shining_original.mp4" autoplay="" loop="" muted id="videoPlayer">
+			</video>
+		</section>
+
+		<section class="audioPlayerContainer">
+			<audio src="music/bluedanube.mp3" autoplay="" loop="" id="audioPlayer">
+			</audio>
+		</section>
+
+		<!-- <audio controls>
+			<source src="music/bluedanube.mp3" type="audio/mpeg">
+		</audio>
+		<img src="img/button.png" onclick="playAudio('music/bluedanube.mp3')">
+ -->
+		<img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" class="musicButtonPlay" id="blueDanube" data-index="0" onclick="controlMusic('blueDanube',0)" />
+		<img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" class="musicButtonPlay" id="nocturne" data-index="0" onclick="controlMusic('nocturne',2)" />
+
+
+		<script>
+			// these are the things we'll control with clicking and tapping
+			let videoPlayer = document.getElementById("videoPlayer");
+			let audioPlayer = document.getElementById("audioPlayer");
+
+			audioPlayer.pause();
+			videoPlayer.pause();
+			// videos are inside the video folder; music is inside the music folder
+			let video = ["shining_original.mp4", "valkyries.mp4", "Vendetta.mp4"];
+			let music = ["bluedanube.mp3", "williamtell.mp3", "nocturne.mp3"]
+
+			// viewer can click on different movies to change what they will see. these are references to the thing they'll click.
+			// var movie1 = document.getElementById("movie1");
+			// var movie2 = document.getElementById("movie2");
+			// var movie3 = document.getElementById("movie3");
+
+			// var audio1 = document.getElementById("audio1");
+
+			function changeVideo(number) {
+				// change source to desired video
+				videoPlayer.setAttribute("src", "video/" + video[number]);
+			}
+
+			function changeMusic(number) {
+				// change source to desired path
+				audioPlayer.setAttribute("src", "music/" + music[number]);
+				videoPlayer.currentTime = 0;
+			}
+
+			function setMedia(videoNumber, musicNumber) {
+				changeMusic(musicNumber);
+				changeVideo(videoNumber);
+			}
+
+			function changeImage() {
+				// if you wanted to make this work for any button you'd probably turn the id you use into a variable.
+				let button = document.getElementById("bigPlayButton");
+				let IsButtonOn = button.dataset.index;
+				// console.log(button, IsButtonOn);
+				if (IsButtonOn == "0") {
+					// button is off. turn it on and switch to pause.
+					button.setAttribute("data-index", "1");
+					button.src = "https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/pause.png";
+					// you can add changeMusic here for when you click on a button that's not the one actively playing. If you do that, you also need to know which position in the array-- that's gonna be another variable
+					audioPlayer.play();
+					videoPlayer.play();
+				} else {
+					// button is on. turn it off and switch to play.
+					button.setAttribute("data-index", "0");
+					button.src = "https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png";
+					audioPlayer.pause();
+					videoPlayer.pause();
+				}
+			}
+
+			function resetPlay() {
+				let buttons = document.getElementsByClassName("musicButtonPlay");
+				for (var i = 0; i < buttons.length; i++) {
+					buttons[i].setAttribute("src", "https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png");
+				}
+			}
+
+			function controlMusic(buttonID, musicNumber) {
+				// if you wanted to make this work for any button you'd probably turn the id you use into a variable.
+				let button = document.getElementById(buttonID);
+				let IsButtonOn = button.dataset.index;
+				console.log(buttonID, IsButtonOn, music[musicNumber]);
+
+				if (IsButtonOn == "0") {
+					// button is off. turn it on and switch to pause. turn off all other buttons.
+					resetPlay();
+					button.setAttribute("data-index", "1");
+					button.src = "https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/pause.png";
+					changeMusic(musicNumber)
+					// you can add changeMusic here for when you click on a button that's not the one actively playing. If you do that, you also need to know which position in the array-- that's gonna be another variable
+					audioPlayer.play();
+					videoPlayer.play();
+				} else {
+					// button is on. turn it off and switch to play.
+					button.setAttribute("data-index", "0");
+					button.src = "https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png";
+					audioPlayer.pause();
+					videoPlayer.pause();
+				}
+			}
+
+		</script>
+	</body>
+
+</html>

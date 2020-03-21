@@ -95,3 +95,40 @@ h2 {
     min-width: 600px;;
 
 }
+
+.videoPlayerContainer {
+      width: 600px;
+    }
+
+    video {
+      width: 100%;
+    }
+
+    .musicButtonPlay {
+      height: 85px;
+      width: 85px;
+    }
+
+    .parent {
+display: grid;
+grid-template-columns: repeat(4, .35fr) .2fr 1.5fr;
+grid-template-rows: repeat(5, .2fr);
+grid-column-gap: 5px;
+grid-row-gap: 0px;
+padding-left: 300px;
+}
+
+.div1 { grid-area: 2 / 1 / 5 / 5; }
+.div2 { grid-area: 6 / 1 / 6 / 2; }
+.div3 { grid-area: 6 / 2 / 6 / 3; }
+.div4 { grid-area: 6 / 3 / 6 / 4; }
+.div5 { grid-area: 6 / 4 / 6 / 5; }
+.div6 { grid-area: 2 / 5 / 2 / 6; }
+.div7 { grid-area: 2 / 6 / 2 / 7; }
+.div8 { grid-area: 3 / 5 / 3 / 6; }
+.div9 { grid-area: 3 / 6 / 3 / 7; }
+.div10 { grid-area: 4 / 5 / 4 / 6; }
+.div11 { grid-area: 4 / 6 / 4 / 7; }
+.div12 { grid-area: 5 / 5 / 5 / 6; }
+.div13 { grid-area: 5 / 6 / 5 / 7; }
+.div14 { grid-area: 1 / 1 / 2 / 7; }
