@@ -104,53 +104,64 @@
 
 <h2>Top Classical Pieces in the Movies 1930-2019</h2>
 
+<div class="center">
 <div class="parent1">
   <div class="div01" id="piece_viz"></div>
 
 
-<div class="div02">
-  <img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" height="25px" width="25px" />
-</div>
+  <div class="div02">
+    <img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" height="20px" width="20px" class="musicButtonPlay1" id="danube" data-index="0" onclick="controlMusic1('danube',0)"/>
+  </div>
 
 <div class="div03">
-  <img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" height="25px" width="25px" />
+  <img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" height="20px" width="20px" class="musicButtonPlay1" id="wagner" data-index="0" onclick="controlMusic1('wagner',1)"/>
 </div>
 
 <div class="div04">
-  <img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" height="25px" width="25px" />
+  <img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" height="20px" width="20px" class="musicButtonPlay1" id="mendelssohn" data-index="0" onclick="controlMusic1('mendelssohn',2)"/>
 </div>
 
 <div class="div05">
-  <img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" height="25px" width="25px" />
+  <img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" height="20px" width="20px" class="musicButtonPlay1" id="williamTell" data-index="0" onclick="controlMusic1('williamTell',3)"/>
 </div>
 
 <div class="div06">
-  <img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" height="25px" width="25px" />
+  <img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" height="20px" width="20px" class="musicButtonPlay1" id="hallelujah" data-index="0" onclick="controlMusic1('hallelujah',4)"/>
 </div>
 
 <div class="div07">
-  <img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" height="25px" width="25px" />
+  <img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" height="20px" width="20px" class="musicButtonPlay1" id="elgar" data-index="0" onclick="controlMusic1('elgar',5)" />
 </div>
 
 <div class="div08">
-  <img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" height="25px" width="25px" />
+  <img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" height="20px" width="20px" class="musicButtonPlay1" id="valkyries" data-index="0" onclick="controlMusic1('valkyries',6)"/>
 </div>
 
 <div class="div09">
-  <img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" height="25px" width="25px" />
+  <img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" height="20px" width="20px" class="musicButtonPlay1" id="nocturne" data-index="0" onclick="controlMusic1('nocturne',7)"/>
 </div>
 
 <div class="div010">
-  <img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" height="25px" width="25px" />
+  <img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" height="20px" width="20px" class="musicButtonPlay1" id="rigoletto" data-index="0" onclick="controlMusic1('rigoletto',8)"/>
 </div>
 
 <div class="div011">
-  <img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" height="25px" width="25px" />
+  <img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" height="20px" width="20px" class="musicButtonPlay1" id="toccata" data-index="0" onclick="controlMusic1('toccata',9)"/>
+</div>
 </div>
 </div>
 
+<section class="audioPlayer1Container">
+			<audio src="music/shining.mp3" autoplay="" loop="" id="audioPlayer1">
+			</audio>
+		</section>
+
 <h2>Top Classical Composers in the Movies 1930-2019</h2>
-<div class="visualization" id="composer_viz"></div>
+<div class="center">
+<div class="parent1">
+  <div class="div01" id="composer_viz"></div>
+</div>
+</div>
 <p>The top pieces of classical music in movies capture various emotions of the human experience- joy, relief, humor, celebration and adventure, just to name a few. The top composers for this list may come as no surprise- Mozart, Bach and Beethoven are considered to be the top classical composers of all time.</p>
 <p>The number one piece of classical music used in the movies is The Blue Danube by Johann Strauss II. A total of 48 movie soundtracks contain this piece spanning from 1937 to 2015. For many early movies, The Blue Danube functions as a background waltz for dancing or scenes of beauty and weightlessness.</p>
 <p>As the years go on, there seems to be a growing trend to use the music ironically or in juxtaposition to other elements of the movie scene such as dialogue or action.</p>
@@ -270,7 +281,7 @@
 </nav>*/
 
 // set the dimensions and margins of the graph
-var margin = {top: 20, right: 0, bottom: 40, left: 140},
+var margin = {top: 0, right: 0, bottom: 40, left: 140},
     width = 1000 - margin.left - margin.right,
     height = 350 - margin.top - margin.bottom;
 // append the svg object to the body of the page
@@ -1026,6 +1037,83 @@ x.lineWeight = 0;
        }
      }
  </script>
+ <script>
+// these are the things we'll control with clicking and tapping
+
+    let audioPlayer1 = document.getElementById("audioPlayer1");
+
+    audioPlayer1.pause();
+
+    // videos are inside the video folder; music is inside the music folder
+    let music2 = ["bluedanube.mp3", "wagner.mp3", "mendelssohn.mp3", "williamtell.mp3", "hallelujah.mp3", "pompandcircumstance.mp3", "valkyries.mp3", "nocturne.mp3", "rigoletto.mp3", "toccata.mp3"]
+
+    // viewer can click on different movies to change what they will see. these are references to the thing they'll click.
+    // var movie1 = document.getElementById("movie1");
+    // var movie2 = document.getElementById("movie2");
+    // var movie3 = document.getElementById("movie3");
+
+    // var audio1 = document.getElementById("audio1");
+
+
+
+    function changeMusic1(number) {
+      // change source to desired path
+      audioPlayer1.setAttribute("src", "music/" + music2[number]);
+
+    }
+
+    function setMusic(musicNumber) {
+      changeMusic1(musicNumber);
+    }
+
+    function changeImage1() {
+      // if you wanted to make this work for any button you'd probably turn the id you use into a variable.
+      let button = document.getElementById("bigPlayButton");
+      let IsButtonOn = button.dataset.index;
+      // console.log(button, IsButtonOn);
+      if (IsButtonOn == "0") {
+        // button is off. turn it on and switch to pause.
+        button.setAttribute("data-index", "1");
+        button.src = "https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/pause.png";
+        // you can add changeMusic1 here for when you click on a button that's not the one actively playing. If you do that, you also need to know which position in the array-- that's gonna be another variable
+        audioPlayer1.play();
+      } else {
+        // button is on. turn it off and switch to play.
+        button.setAttribute("data-index", "0");
+        button.src = "https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png";
+        audioPlayer1.pause();
+      }
+    }
+
+    function resetMusic() {
+      let buttons = document.getElementsByClassName("musicButtonPlay1");
+      for (var i = 0; i < buttons.length; i++) {
+        buttons[i].setAttribute("src", "https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png");
+      }
+    }
+
+    function controlMusic1(buttonID, musicNumber) {
+      // if you wanted to make this work for any button you'd probably turn the id you use into a variable.
+      let button = document.getElementById(buttonID);
+      let IsButtonOn = button.dataset.index;
+      console.log(buttonID, IsButtonOn, music2[musicNumber]);
+
+      if (IsButtonOn == "0") {
+        // button is off. turn it on and switch to pause. turn off all other buttons.
+        resetMusic();
+        button.setAttribute("data-index", "1");
+        button.src = "https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/pause.png";
+        changeMusic1(musicNumber)
+        // you can add changeMusic1 here for when you click on a button that's not the one actively playing. If you do that, you also need to know which position in the array-- that's gonna be another variable
+        audioPlayer1.play();
+      } else {
+        // button is on. turn it off and switch to play.
+        button.setAttribute("data-index", "0");
+        button.src = "https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png";
+        audioPlayer1.pause();
+      }
+    }
+</script>
 
 
 </body>
