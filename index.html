@@ -10,6 +10,7 @@
 </head>
 
   <body>
+
     <div class="container3">
         <img src="img/capstone_header.png"/>
       </div>
@@ -19,13 +20,13 @@
 </div>
 <div class="parent">
 
-		<div class="div2">
+		<div class="div3">
 		<section id="movie1" onclick="setMedia(0,4)">
-      <img src="img/shining.png" width="150" height="200">
+      <img id="movieoutline" src="img/shining.png" width="150" height="200">
 		</section>
 	  </div>
 
-		<div class="div3">
+		<div class="div2">
 		<section id="movie2" onclick="setMedia(2,6)">
 			<img src="img/graduate.png" width="150" height="200">
 		</section>
@@ -42,6 +43,12 @@
 			<img src="img/vendetta.png" width="150" height="200">
 		</section>
 		</div>
+
+    <div class="div15">
+    <section id="movie5" onclick="setMedia(4,8)">
+      <img src="img/lionking.png" width="150" height="200">
+    </section>
+    </div>
 
 
 		<br>
@@ -69,7 +76,7 @@
 			<img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" class="musicButtonPlay" id="blueDanube" data-index="0" onclick="controlMusic('blueDanube',0)" />
 		  </div>
 			<div class="div7">
-			<p>The Blue Danube</p>
+			<p><b>The Blue Danube</b></p>
 			<p>By Richard Strauss II</p>
 		  </div>
 
@@ -77,7 +84,7 @@
 			<img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" class="musicButtonPlay" id="valkyries" data-index="0" onclick="controlMusic('valkyries',1)" />
 	  	</div>
 			<div class="div9">
-			<p>Ride of the Valkyries</p>
+			<p><b>Ride of the Valkyries</b></p>
 			<p>By Richard Wagner</p>
 		  </div>
 
@@ -87,7 +94,7 @@
 		  <img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" class="musicButtonPlay" id="nocturne" data-index="0" onclick="controlMusic('nocturne',2)" />
 	   	</div>
 			<div class="div11">
-			<p>Nocturne Op.9 No.2</p>
+			<p><b>Nocturne Op.9 No.2</b></p>
 			<p>By Frédéric Chopin</p>
 		  </div>
 
@@ -95,7 +102,7 @@
 			<img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" class="musicButtonPlay" id="toccata" data-index="0" onclick="controlMusic('toccata',3)" />
 			</div>
 			<div class="div13">
-			<p>Toccata and Fugue</p>
+			<p><b>Toccata and Fugue</b></p>
 			<p>By J.S. Bach</p>
 			</div>
 
@@ -1086,8 +1093,8 @@ myChart.setMargins("240px", "10px", "18%", "20px");
      audioPlayer.pause();
      videoPlayer.pause();
      // videos are inside the video folder; music is inside the music folder
-     let video = ["shining2.mp4", "oz2.mp4", "graduate2.mp4", "vendetta2.mp4"];
-     let music = ["bluedanube.mp3", "valkyries.mp3", "nocturne.mp3", "toccata.mp3", "shining.mp3", "oz.mp3", "graduate.mp3", "vendetta.mp3"]
+     let video = ["shining2.mp4", "oz2.mp4", "graduate2.mp4", "vendetta2.mp4", "lionking2.mp4"];
+     let music = ["bluedanube.mp3", "valkyries.mp3", "nocturne.mp3", "toccata.mp3", "shining.mp3", "oz.mp3", "graduate.mp3", "vendetta.mp3", "lionking2.mp3"]
 
      // viewer can click on different movies to change what they will see. these are references to the thing they'll click.
      // var movie1 = document.getElementById("movie1");
@@ -1099,6 +1106,7 @@ myChart.setMargins("240px", "10px", "18%", "20px");
      function changeVideo(number) {
        // change source to desired video
        videoPlayer.setAttribute("src", "video/" + video[number]);
+      document.getElementById("movieoutline").style.border = "2px black";
      }
 
      function changeMusic(number) {
@@ -1155,12 +1163,15 @@ myChart.setMargins("240px", "10px", "18%", "20px");
          // you can add changeMusic here for when you click on a button that's not the one actively playing. If you do that, you also need to know which position in the array-- that's gonna be another variable
          audioPlayer.play();
          videoPlayer.play();
+
        } else {
          // button is on. turn it off and switch to play.
          button.setAttribute("data-index", "0");
          button.src = "https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png";
          audioPlayer.pause();
          videoPlayer.pause();
+
+
        }
      }
  </script>

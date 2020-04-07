@@ -78,7 +78,7 @@ p {
 
 h2 {
   text-align: center;
-  font-family: 'Roboto', Arial, sans-serif;
+    font-family: Arial;
   /*padding-left: 420px;
   padding-right: 420px;*/
   margin-left: auto;
@@ -111,27 +111,48 @@ h2 {
 
     .parent {
 display: grid;
-grid-template-columns: repeat(4, .35fr) .2fr 1.5fr;
-grid-template-rows: repeat(5, .2fr);
+grid-template-columns: repeat(4, .20fr) 100px .1fr;
+grid-template-rows: repeat(4, .2fr) 100px;
 grid-column-gap: 5px;
 grid-row-gap: 0px;
 padding-left: 300px;
 }
 
-.div1 { grid-area: 2 / 1 / 5 / 5; }
+.div1 { grid-area: 2 / 1 / 5 / 5;  }
 .div2 { grid-area: 6 / 1 / 6 / 2; }
 .div3 { grid-area: 6 / 2 / 6 / 3; }
 .div4 { grid-area: 6 / 3 / 6 / 4; }
 .div5 { grid-area: 6 / 4 / 6 / 5; }
+.div15 { grid-area: 6 / 5 / 6 / 6; }
 .div6 { grid-area: 2 / 5 / 2 / 6; }
-.div7 { grid-area: 2 / 6 / 2 / 7; }
+.div7 { grid-area: 2 / 6 / 2 / 7; line-height: 8px; padding-top: 10px;}
 .div8 { grid-area: 3 / 5 / 3 / 6; }
-.div9 { grid-area: 3 / 6 / 3 / 7; }
+.div9 { grid-area: 3 / 6 / 3 / 7; line-height: 8px; padding-top: 10px;}
 .div10 { grid-area: 4 / 5 / 4 / 6; }
-.div11 { grid-area: 4 / 6 / 4 / 7; }
+.div11 { grid-area: 4 / 6 / 4 / 7; line-height: 8px; padding-top: 10px;}
 .div12 { grid-area: 5 / 5 / 5 / 6; }
-.div13 { grid-area: 5 / 6 / 5 / 7; }
+.div13 { grid-area: 5 / 6 / 5 / 7; line-height: 8px; padding-top: 10px;}
 .div14 { grid-area: 1 / 1 / 2 / 7; }
+
+.div7 p {
+  font-family: Arial;
+}
+
+.div9 p {
+  font-family: Arial;
+}
+
+.div11 p {
+  font-family: Arial;
+}
+
+.div13 p {
+  font-family: Arial;
+}
+
+.div14 h2 {
+  font-family: Arial;
+}
 
 .center {
   display: flex;
