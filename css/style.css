@@ -70,7 +70,6 @@ p {
 
     font-family: Arial, sans-serif;
     font-size: 12px;
-     margin-right: auto;
      width: 400px;
      min-width: 400px;
 
@@ -197,7 +196,7 @@ grid-row-gap: 0px;
 .parent2 {
 display: grid;
 grid-template-columns: repeat(5, 180px);
-grid-template-rows: 90px 50px 90px 50px 90px 50px 90px 50px 90px 50px 90px 50px 90px 50px 90px 50px 90px 50px 90px 50px 90px 50px 90px 50px 90px 50px 90px 50px;
+grid-template-rows: 90px 40px 90px 40px 90px 40px 90px 40px 90px 40px 90px 40px 90px 40px 90px 40px 90px 40px 90px 40px 90px 40px 90px 40px 90px 40px 90px 40px;
 grid-column-gap: 0px;
 grid-row-gap: 0px;
 }
