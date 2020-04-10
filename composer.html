@@ -1,242 +1,87 @@
-<!DOCTYPE html>
-<head>
-<meta charset="utf-8">
-  <meta charset="UTF-8" />
-<link rel="stylesheet" href="css/style.css">
-</head>
-<style>
-.parent {
-display: grid;
-grid-template-columns: repeat(4, .20fr) 75px .1fr;
-grid-template-rows: repeat(4, 90px) 200px;
-grid-column-gap: 3px;
-grid-row-gap: 0px;
-padding-left: 300px;
-}
-
-.div1 { grid-area: 1 / 1 / 5 / 5;  }
-.div2 { grid-area: 5 / 1 / 6 / 2; }
-.div3 { grid-area: 5 / 2 / 6 / 3; }
-.div4 { grid-area: 5 / 3 / 6 / 4; }
-.div5 { grid-area: 5 / 4 / 6 / 5; }
-.div15 { grid-area: 5 / 5 / 6 / 6; }
-.div6 { grid-area: 1 / 5 / 2 / 6; }
-.div7 { grid-area: 1 / 6 / 2 / 7; line-height: 8px;}
-.div8 { grid-area: 2 / 5 / 3 / 6; }
-.div9 { grid-area: 2 / 6 / 3 / 7; line-height: 8px;}
-.div10 { grid-area: 3 / 5 / 4 / 6; }
-.div11 { grid-area: 3 / 6 / 4 / 7; line-height: 8px;}
-.div12 { grid-area: 4 / 5 / 5 / 6; }
-.div13 { grid-area: 4 / 6 / 5 / 7; line-height: 8px;}
-.div14 { grid-area: 1 / 1 / 2 / 7; }
-
-.div7 p {
-font-family: Arial;
-}
-
-.div9 p {
-font-family: Arial;
-}
-
-.div11 p {
-font-family: Arial;
-}
-
-.div13 p {
-font-family: Arial;
-}
-
-.div14 h2 {
-font-family: Arial;
-}
-
-p {
-  text-align: left;
-}
-</style>
-<body>
-  <div class="div14">
-  	<h2>Choose Your Own Soundtrack</h2>
-  </div>
-  <div class="parent">
-
-  		<div class="div3">
-  		<section id="movie1" onclick="setMedia(0,4)">
-        <img id="movieoutline" src="img/shining.png" width="150" height="200">
-  		</section>
-  	  </div>
-
-  		<div class="div2">
-  		<section id="movie2" onclick="setMedia(2,6)">
-  			<img src="img/graduate.png" width="150" height="200">
-  		</section>
-  	  </div>
-
-  		<div class="div4">
-  		<section id="movie3" onclick="setMedia(1,5)">
-  			<img src="img/oz.png" width="150" height="200">
-  		</section>
-  	  </div>
-
-  		<div class="div5">
-  		<section id="movie4" onclick="setMedia(3,7)">
-  			<img src="img/vendetta.png" width="150" height="200">
-  		</section>
-  		</div>
-
-      <div class="div15">
-      <section id="movie5" onclick="setMedia(4,8)">
-        <img src="img/lionking.png" width="150" height="200">
-      </section>
-      </div>
-
-
-  		<br>
-  		<div class="div1">
-  		<section class="videoPlayerContainer">
-  			<video src="video/shining2.mp4" autoplay="" loop="" muted id="videoPlayer">
-  			</video>
-  		</section>
-    	</div>
-
-  		<section class="audioPlayerContainer">
-  			<audio src="music/shining.mp3" autoplay="" loop="" id="audioPlayer">
-  			</audio>
-  		</section>
-
-
-  		<!-- <audio controls>
-  			<source src="music/bluedanube.mp3" type="audio/mpeg">
-  		</audio>
-  		<img src="img/button.png" onclick="playAudio('music/bluedanube.mp3')">
-   -->
-
-
-  			<div class="div6">
-  			<img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" class="musicButtonPlay" id="blueDanube" data-index="0" onclick="controlMusic('blueDanube',0)" />
-  		  </div>
-  			<div class="div7">
-  			<p><b>The Blue Danube</b></p>
-  			<p>By Richard Strauss II</p>
-  		  </div>
-
-  			<div class="div8">
-  			<img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" class="musicButtonPlay" id="valkyries" data-index="0" onclick="controlMusic('valkyries',1)" />
-  	  	</div>
-  			<div class="div9">
-  			<p><b>Ride of the Valkyries</b></p>
-  			<p>By Richard Wagner</p>
-  		  </div>
-
-
-
-  			<div class="div10">
-  		  <img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" class="musicButtonPlay" id="nocturne" data-index="0" onclick="controlMusic('nocturne',2)" />
-  	   	</div>
-  			<div class="div11">
-  			<p><b>Nocturne Op.9 No.2</b></p>
-  			<p>By Frédéric Chopin</p>
-  		  </div>
-
-  			<div class="div12">
-  			<img src="https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png" class="musicButtonPlay" id="toccata" data-index="0" onclick="controlMusic('toccata',3)" />
-  			</div>
-  			<div class="div13">
-  			<p><b>Toccata and Fugue</b></p>
-  			<p>By J.S. Bach</p>
-  			</div>
-
-
-  	</div>
-    <script>
-    // these are the things we'll control with clicking and tapping
-        let videoPlayer = document.getElementById("videoPlayer");
-        let audioPlayer = document.getElementById("audioPlayer");
-
-        audioPlayer.pause();
-        videoPlayer.pause();
-        // videos are inside the video folder; music is inside the music folder
-        let video = ["shining2.mp4", "oz2.mp4", "graduate2.mp4", "vendetta2.mp4", "lionking2.mp4"];
-        let music = ["bluedanube.mp3", "valkyries.mp3", "nocturne.mp3", "toccata.mp3", "shining.mp3", "oz.mp3", "graduate.mp3", "vendetta.mp3", "lionking2.mp3"]
-
-        // viewer can click on different movies to change what they will see. these are references to the thing they'll click.
-        // var movie1 = document.getElementById("movie1");
-        // var movie2 = document.getElementById("movie2");
-        // var movie3 = document.getElementById("movie3");
-
-        // var audio1 = document.getElementById("audio1");
-
-        function changeVideo(number) {
-          // change source to desired video
-          videoPlayer.setAttribute("src", "video/" + video[number]);
-         document.getElementById("movieoutline").style.border = "2px black";
-        }
-
-        function changeMusic(number) {
-          // change source to desired path
-          audioPlayer.setAttribute("src", "music/" + music[number]);
-          videoPlayer.currentTime = 0;
-        }
-
-        function setMedia(videoNumber, musicNumber) {
-          changeMusic(musicNumber);
-          changeVideo(videoNumber);
-        }
-
-        function changeImage() {
-          // if you wanted to make this work for any button you'd probably turn the id you use into a variable.
-          let button = document.getElementById("bigPlayButton");
-          let IsButtonOn = button.dataset.index;
-          // console.log(button, IsButtonOn);
-          if (IsButtonOn == "0") {
-            // button is off. turn it on and switch to pause.
-            button.setAttribute("data-index", "1");
-            button.src = "https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/pause.png";
-            // you can add changeMusic here for when you click on a button that's not the one actively playing. If you do that, you also need to know which position in the array-- that's gonna be another variable
-            audioPlayer.play();
-            videoPlayer.play();
-          } else {
-            // button is on. turn it off and switch to play.
-            button.setAttribute("data-index", "0");
-            button.src = "https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png";
-            audioPlayer.pause();
-            videoPlayer.pause();
-          }
-        }
-
-        function resetPlay() {
-          let buttons = document.getElementsByClassName("musicButtonPlay");
-          for (var i = 0; i < buttons.length; i++) {
-            buttons[i].setAttribute("src", "https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png");
-          }
-        }
-
-        function controlMusic(buttonID, musicNumber) {
-          // if you wanted to make this work for any button you'd probably turn the id you use into a variable.
-          let button = document.getElementById(buttonID);
-          let IsButtonOn = button.dataset.index;
-          console.log(buttonID, IsButtonOn, music[musicNumber]);
-
-          if (IsButtonOn == "0") {
-            // button is off. turn it on and switch to pause. turn off all other buttons.
-            resetPlay();
-            button.setAttribute("data-index", "1");
-            button.src = "https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/pause.png";
-            changeMusic(musicNumber)
-            // you can add changeMusic here for when you click on a button that's not the one actively playing. If you do that, you also need to know which position in the array-- that's gonna be another variable
-            audioPlayer.play();
-            videoPlayer.play();
-
-          } else {
-            // button is on. turn it off and switch to play.
-            button.setAttribute("data-index", "0");
-            button.src = "https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png";
-            audioPlayer.pause();
-            videoPlayer.pause();
-
-
-          }
-        }
-    </script>
-</body>
-</html>
+<div class="movie">
+<div class="grid-container">
+  <img class="static" src="gifs/1950s.png" height="100px" width="170px"><img class="active" src="gifs/1950s.png"  height="100px" width="170px">
+  <img class="static" src="img/glennmillerstory.png" height="100px" width="170px"><img class="active" src="gifs/glennmillerstory.gif"  height="100px" width="170px">
+  <img class="static" src="img/asummerplace.png" height="100px" width="170px"><img class="active" src="gifs/summerplace.gif"  height="100px" width="170px">
+</div>
+<div class="grid-container">
+  <img class="static" src="gifs/1960s.png" height="100px" width="170px"><img class="active" src="gifs/1960s.png"  height="100px" width="170px">
+  <img class="static" src="img/irmaladouce.png" height="100px" width="170px"><img class="active" src="gifs/irma.gif"  height="100px" width="170px">
+</div>
+<div class="grid-container">
+  <img class="static" src="gifs/1980s.png" height="100px" width="170px"><img class="active" src="gifs/1980s.png"  height="100px" width="170px">
+  <img class="static" src="img/privatebenjamin.png" height="100px" width="170px"><img class="active" src="gifs/privatebenjamin.gif"  height="100px" width="170px">
+  <img class="static" src="img/outofafrica.png" height="100px" width="170px"><img class="active" src="gifs/outofafrica.gif"  height="100px" width="170px">
+  <img class="static" src="img/blinddate.png" height="100px" width="170px"><img class="active" src="gifs/blinddate.gif"  height="100px" width="170px">
+  <img class="static" src="img/spaceballs.png" height="100px" width="170px"><img class="active" src="gifs/spaceballs.gif"  height="100px" width="170px">
+</div>
+<div class="grid-container">
+  <img class="static" src="gifs/blank.png" height="100px" width="170px"><img class="active" src="gifs/blank.png"  height="100px" width="170px">
+  <img class="static" src="img/beaches.png" height="100px" width="170px"><img class="active" src="gifs/beaches.gif"  height="100px" width="170px">
+  <img class="static" src="img/beetlejuice.png" height="100px" width="170px"><img class="active" src="gifs/beetlejuice.gif"  height="100px" width="170px">
+  <img class="static" src="img/chancesare.png" height="100px" width="170px"><img class="active" src="gifs/chancesare.gif"  height="100px" width="170px">
+  <img class="static" src="img/cousins.png" height="100px" width="170px"><img class="active" src="gifs/cousins.gif"  height="100px" width="170px">
+</div>
+<div class="grid-container">
+  <img class="static" src="gifs/blank.png" height="100px" width="170px"><img class="active" src="gifs/blank.png"  height="100px" width="170px">
+  <img class="static" src="img/licensetokill.png" height="100px" width="170px"><img class="active" src="gifs/licensetokill.gif"  height="100px" width="170px">
+  <img class="static" src="img/steelmagnolias.png" height="100px" width="170px"><img class="active" src="gifs/steelmagnolias.gif"  height="100px" width="170px">
+</div>
+<div class="grid-container">
+  <img class="static" src="gifs/1990s.png" height="100px" width="170px"><img class="active" src="gifs/1990s.png"  height="100px" width="170px">
+  <img class="static" src="img/gremlins2.png" height="100px" width="170px"><img class="active" src="gifs/gremlins2.gif"  height="100px" width="170px">
+  <img class="static" src="img/fatherofthebride.png" height="100px" width="170px"><img class="active" src="gifs/fatherofthebride.gif"  height="100px" width="170px">
+  <img class="static" src="img/aleagueoftheirown.png" height="100px" width="170px"><img class="active" src="gifs/leagueoftheirown.gif"  height="100px" width="170px">
+  <img class="static" src="img/addamsfamily.png" height="100px" width="170px"><img class="active" src="gifs/addamsvalues.gif"  height="100px" width="170px">
+</div>
+<div class="grid-container">
+  <img class="static" src="gifs/blank.png" height="100px" width="170px"><img class="active" src="gifs/blank.png"  height="100px" width="170px">
+  <img class="static" src="img/cemetaryclub.png" height="100px" width="170px"><img class="active" src="gifs/cemetaryclub.gif"  height="100px" width="170px">
+  <img class="static" src="img/robinhood.png" height="100px" width="170px"><img class="active" src="gifs/robinhood.gif"  height="100px" width="170px">
+  <img class="static" src="img/grumpieroldmen.png" height="100px" width="170px"><img class="active" src="gifs/grumpieroldmen.gif"  height="100px" width="170px">
+  <img class="static" src="img/boxer.png" height="100px" width="170px"><img class="active" src="gifs/boxer.gif"  height="100px" width="170px">
+</div>
+<div class="grid-container">
+  <img class="static" src="gifs/blank.png" height="100px" width="170px"><img class="active" src="gifs/blank.png"  height="100px" width="170px">
+  <img class="static" src="img/inandout.png" height="100px" width="170px"><img class="active" src="gifs/inandout.gif"  height="100px" width="170px">
+  <img class="static" src="img/vegasvacation.png" height="100px" width="170px"><img class="active" src="gifs/vegasvacation.gif"  height="100px" width="170px">
+  <img class="static" src="img/mafia.png" height="100px" width="170px"><img class="active" src="gifs/mafia.gif"  height="100px" width="170px">
+  <img class="static" src="img/nightatroxbury.png" height="100px" width="170px"><img class="active" src="gifs/nightatroxbury.gif"  height="100px" width="170px">
+</div>
+<div class="grid-container">
+  <img class="static" src="gifs/blank.png" height="100px" width="170px"><img class="active" src="gifs/blank.png"  height="100px" width="170px">
+  <img class="static" src="img/objectofmyaffection.png" height="100px" width="170px"><img class="active" src="gifs/objectofmyaffection.gif"  height="100px" width="170px">
+  <img class="static" src="img/bachelor.png" height="100px" width="170px"><img class="active" src="gifs/bachelor.gif"  height="100px" width="170px">
+  <img class="static" src="img/othersister.png" height="100px" width="170px"><img class="active" src="gifs/othersister.gif"  height="100px" width="170px">
+  <img class="static" src="img/runawaybride.png" height="100px" width="170px"><img class="active" src="gifs/runawaybride.gif"  height="100px" width="170px">
+</div>
+<div class="grid-container">
+  <img class="static" src="gifs/2000s.png" height="100px" width="170px"><img class="active" src="gifs/2000s.png"  height="100px" width="170px">
+  <img class="static" src="img/28days.png" height="100px" width="170px"><img class="active" src="gifs/28days.gif"  height="100px" width="170px">
+  <img class="static" src="img/bridgetjones.png" height="100px" width="170px"><img class="active" src="gifs/bridgetjones.gif"  height="100px" width="170px">
+  <img class="static" src="img/savingsilverman.png" height="100px" width="170px"><img class="active" src="gifs/savingsilverman.gif"  height="100px" width="170px">
+  <img class="static" src="img/brownsugar.png" height="100px" width="170px"><img class="active" src="gifs/brownsugar.gif"  height="100px" width="170px">
+</div>
+<div class="grid-container">
+  <img class="static" src="gifs/blank.png" height="100px" width="170px"><img class="active" src="gifs/blank.png"  height="100px" width="170px">
+  <img class="static" src="img/mybigfatgreekwedding.png" height="100px" width="170px"><img class="active" src="gifs/mybigfatgreekwedding.gif"  height="100px" width="170px">
+  <img class="static" src="img/santaclause2.png" height="100px" width="170px"><img class="active" src="gifs/santaclause2.gif"  height="100px" width="170px">
+  <img class="static" src="img/howtodeal.png" height="100px" width="170px"><img class="active" src="gifs/howtodeal.gif"  height="100px" width="170px">
+  <img class="static" src="img/justmarried.png" height="100px" width="170px"><img class="active" src="gifs/justmarried.gif"  height="100px" width="170px">
+</div>
+<div class="grid-container">
+  <img class="static" src="gifs/blank.png" height="100px" width="170px"><img class="active" src="gifs/blank.png"  height="100px" width="170px">
+  <img class="static" src="img/spiderman2.png" height="100px" width="170px"><img class="active" src="gifs/spiderman2.gif"  height="100px" width="170px">
+</div>
+<div class="grid-container">
+  <img class="static" src="gifs/2010s.png" height="100px" width="170px"><img class="active" src="gifs/2010s.png"  height="100px" width="170px">
+  <img class="static" src="img/hangover.png" height="100px" width="170px"><img class="active" src="gifs/hangover.gif"  height="100px" width="170px">
+  <img class="static" src="img/devilsdue.png" height="100px" width="170px"><img class="active" src="gifs/devilsdue.gif"  height="100px" width="170px">
+  <img class="static" src="img/muppets.png" height="100px" width="170px"><img class="active" src="gifs/muppets.gif"  height="100px" width="170px">
+  <img class="static" src="img/newgirlfriend.png" height="100px" width="170px"><img class="active" src="gifs/newgirlfriend.gif"  height="100px" width="170px">
+</div>
+<div class="grid-container">
+  <img class="static" src="gifs/blank.png" height="100px" width="170px"><img class="active" src="gifs/blank.png"  height="100px" width="170px">
+  <img class="static" src="img/dressmaker.png" height="100px" width="170px"><img class="active" src="gifs/dressmaker.gif"  height="100px" width="170px">
+</div>
+</div>
