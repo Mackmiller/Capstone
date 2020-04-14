@@ -75,6 +75,13 @@ p {
 
 }
 
+.advisor p{
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+   width: 400px;
+   min-width: 400px;
+}
+
 
 .gif_text p {
 
