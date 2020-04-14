@@ -211,7 +211,7 @@
 </div>
 <p class="toptext">The top composers for this list may come as no surprise- Mozart, Bach and Beethoven are considered to be the top classical composers of all time. In his life time, Mozart was thought to have written around 600 pieces, and almost 300 of them made it into movies. Interesting enough, the only composer of the three to make it to the top ten pieces of all time(mentioned above) was Bach, for his Toccata and Fugue in D minor, in 10th place. Wagner had two pieces in the top ten: 2nd place for his Bridal Chorus and 7th place for Ride of the Valkyries. Wagner, Puccini, and Verdi were prominently known as composers for opera, whose music lends itself well for film. </p>
 <h2>How Often Do Movies Use Classical Music?</h2>
-<div class="visualization" id="linechart"></div>
+<div class="visualization" id="lollipop"></div>
 
 <p>The majority of the composers lived and composed during the Romantic Era of music, which was from around 1820 to 1910. The music associated with this time was emotional dramatic, and programmatic. Music was said to even be inspired by non-musical stimuli, such as nature, literature, or poetry; it would make sense that this was the music that was preferred to accompany film scenes.</p>
 <h2>Frequency of Use for the Top Ten Pieces</h2>
@@ -684,415 +684,236 @@ svg2.append("text")
                    .style("font-size", "10px")
                    .text("Number of pieces");
 
+// set the dimensions and margins of the graph
+var margin = {top: 10, right: 49, bottom: 30, left: 130},
+    height6 = 500 - margin.top - margin.bottom,
+    width6 = 800 - margin.left - margin.right;
+
+// append the svg object to the body of the page
+var svg6 = d3.select("#lollipop")
+  .append("svg")
+    .attr("width", width6 + margin.left + margin.right)
+    .attr("height", height6 + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+// Parse the Data
+d3.csv("https://raw.githubusercontent.com/Mackmiller/Capstone/master/data/lollipop.csv", function(data) {
+
+
+  // Add X axis
+  var x = d3.scaleLinear()
+    .domain([1600, 1950])
+    .range([ 0, width6]);
+  svg6.append("g")
+    .attr("transform", "translate(0," + height6 + ")")
+    .call(d3.axisBottom(x).tickFormat(d3.format('d')),)
+
+  // Y axis
+  var y = d3.scaleBand()
+    .range([ 0, height6 ])
+    .domain(data.map(function(d) { return d.group; }))
+    .padding(1);
+  svg6.append("g")
+    .call(d3.axisLeft(y))
+
+  // Lines
+  svg6.selectAll("myline")
+    .data(data)
+    .enter()
+    .append("line")
+      .attr("x1", function(d) { return x(d.value1); })
+      .attr("x2", function(d) { return x(d.value2); })
+      .attr("y1", function(d) { return y(d.group); })
+      .attr("y2", function(d) { return y(d.group); })
+      .attr("stroke", "grey")
+      .attr("stroke-width", "1px")
+
+  //variable 1
+
+  var tooltip = d3.select("#lollipop")
+     .append("div")
+       .style("opacity", 0)
+       .style("position", "absolute")
+       .attr("class", "tooltip")
+       .style("background-color", "black")
+       .style("border-radius", "5px")
+       .style("padding", "10px")
+       .style("color", "white")
+
+       var showTooltip = function(d) {
+    tooltip
+      .transition()
+      .duration(200)
+    tooltip
+      .style("opacity", 1)
+      .html("Born: " + d.value1)
+      .style("left", (d3.mouse(this)[0]+30) + "px")
+      .style("top", (d3.mouse(this)[1]+30) + "px")
+  }
+  var moveTooltip = function(d) {
+    tooltip
+      .style("left", (d3.mouse(this)[0]+30) + "px")
+      .style("top", (d3.mouse(this)[1]+30) + "px")
+  }
+  var hideTooltip = function(d) {
+    tooltip
+      .transition()
+      .duration(200)
+      .style("opacity", 0)
+  }
+
+  // Circles of variable 1
+  svg6.selectAll("mycircle")
+    .data(data)
+    .enter()
+    .append("circle")
+      .attr("cx", function(d) { return x(d.value1); })
+      .attr("cy", function(d) { return y(d.group); })
+      .attr("r", "6")
+      .style("fill", "#A9261C")
+      .on("mouseover", showTooltip )
+    .on("mousemove", moveTooltip )
+    .on("mouseleave", hideTooltip )
+
+//variable 2
+
+      var tooltip2 = d3.select("#lollipop")
+         .append("div")
+           .style("opacity", 0)
+           .style("position", "absolute")
+           .attr("class", "tooltip")
+           .style("background-color", "black")
+           .style("border-radius", "5px")
+           .style("padding", "10px")
+           .style("color", "white")
+
+           var showTooltip2 = function(d) {
+        tooltip2
+          .transition()
+          .duration(200)
+        tooltip2
+          .style("opacity", 1)
+          .html("Died: " + d.value2)
+          //.html("Died: " + d.value2)
+          .style("left", (d3.mouse(this)[0]+30) + "px")
+          .style("top", (d3.mouse(this)[1]+30) + "px")
+      }
+      var moveTooltip2 = function(d) {
+        tooltip2
+          .style("left", (d3.mouse(this)[0]+30) + "px")
+          .style("top", (d3.mouse(this)[1]+30) + "px")
+      }
+      var hideTooltip2 = function(d) {
+        tooltip2
+          .transition()
+          .duration(200)
+          .style("opacity", 0)
+      }
+
+  // Circles of variable 2
+  svg6.selectAll("mycircle")
+    .data(data)
+    .enter()
+    .append("circle")
+      .attr("cx", function(d) { return x(d.value2); })
+      .attr("cy", function(d) { return y(d.group); })
+      .attr("r", "6")
+      .style("fill", "#A9261C")
+      .on("mouseover", showTooltip2 )
+    .on("mousemove", moveTooltip2 )
+    .on("mouseleave", hideTooltip2 )
+    /*.append("text")
+    .text(function(d){return d.group})*/
+})
+//lines for eras
+svg6.append("line")
+                .attr("y1", (0))
+                   .attr("y2", (460))
+                   .attr("x1", (267))
+                   .attr("x2", (267))
+                   .attr("stroke", "grey")
+                   .style("stroke-dasharray", ("2, 3"));
+                   svg6.append("line")
+                                   .attr("y1", (0))
+                                      .attr("y2", (460))
+                                      .attr("x1", (392))
+                                      .attr("x2", (392))
+                                      .attr("stroke", "grey")
+                                      .style("stroke-dasharray", ("2, 3"));
+                                      svg6.append("line")
+                                                      .attr("y1", (0))
+                                                         .attr("y2", (460))
+                                                         .attr("x1", (552))
+                                                         .attr("x2", (552))
+                                                         .attr("stroke", "grey")
+                                                         .style("stroke-dasharray", ("2, 3"));
+//rects for eras: baroque, classical, romantic, modern
+/*var rect = svg.append("rect")
+                      .attr("x", 0)
+                           .attr("y", 0)
+                           .attr("width", 267)
+                            .attr("height", 460)
+                            .style("fill", "#CAFDFD")
+                            .style("fill-opacity", .3);
+
+var rect2 = svg.append("rect")
+                      .attr("x", 267)
+                           .attr("y", 0)
+                           .attr("width", 125)
+                            .attr("height", 460)
+                            .style("fill", "#4098C7")
+                            .style("fill-opacity", .1);
+
+var rect3 = svg.append("rect")
+                      .attr("x", 392)
+                           .attr("y", 0)
+                           .attr("width", 160)
+                            .attr("height", 460)
+                            .style("fill", "#294186")
+                            .style("fill-opacity", .1);
+
+var rect4 = svg.append("rect")
+                      .attr("x", 552)
+                           .attr("y", 0)
+                           .attr("width", 69)
+                            .attr("height", 460)
+                            .style("fill", "#5D8487")
+                            .style("fill-opacity", .1);*/
+//text headers (same order as above)
+                            svg6.append("text")
+                                               .attr("x", 560)
+                                               .attr("y", 20)
+                                               .style("font-family", "Arial")
+                                                .style("font-weight", "bold")
+                                               .style("font-size", "14px")
+                                               .text("Modern");
+
+                                               svg6.append("text")
+                                                                  .attr("x", 110)
+                                                                  .attr("y", 20)
+                                                                  .style("font-family", "Arial")
+                                                                   .style("font-weight", "bold")
+                                                                  .style("font-size", "14px")
+                                                                  .text("Baroque");
+
+                                                                  svg6.append("text")
+                                                                                     .attr("x", 300)
+                                                                                     .attr("y", 20)
+                                                                                     .style("font-family", "Arial")
+                                                                                      .style("font-weight", "bold")
+                                                                                     .style("font-size", "14px")
+                                                                                     .text("Classical");
+                                                                                     svg6.append("text")
+                                                                                                        .attr("x", 440)
+                                                                                                        .attr("y", 20)
+                                                                                                        .style("font-family", "Arial")
+                                                                                                         .style("font-weight", "bold")
+                                                                                                        .style("font-size", "14px")
+                                                                                                        .text("Romantic");
 
 
-var general=[
-{"Year": "1930",
- "Movies with Music": 1,
- "General Movies": 15},
-
- {"Year": "1931",
-  "Movies with Music": 6,
-  "General Movies": 17},
-
-  {"Year": "1932",
-   "Movies with Music": 2,
-   "General Movies": 15},
-
-   {"Year": "1933",
-    "Movies with Music": 0,
-    "General Movies": 19},
-
-    {"Year": "1934",
-     "Movies with Music": 0,
-   "General Movies": 18},
-
-     {"Year": "1935",
-      "Movies with Music": 1,
-      "General Movies": 16},
-
-      {"Year": "1936",
-       "Movies with Music": 3,
-       "General Movies": 16},
-
-       {"Year": "1937",
-        "Movies with Music": 3,
-        "General Movies": 24},
-
-        {"Year": "1938",
-         "Movies with Music": 1,
-         "General Movies": 18},
-
-         {"Year": "1939",
-          "Movies with Music": 2,
-          "General Movies": 24},
-
-          {"Year": "1940",
-           "Movies with Music": 12,
-           "General Movies": 21},
-
-           {"Year": "1941",
-            "Movies with Music": 3,
-            "General Movies": 27},
-
-            {"Year": "1942",
-             "Movies with Music": 4,
-             "General Movies": 25},
-
-             {"Year": "1943",
-              "Movies with Music": 1,
-              "General Movies": 25},
-
-              {"Year": "1944",
-               "Movies with Music": 3,
-               "General Movies": 21},
-
-               {"Year": "1945",
-                "Movies with Music": 2,
-                "General Movies": 30},
-
-                {"Year": "1946",
-                 "Movies with Music": 13,
-                 "General Movies": 36},
-
-                 {"Year": "1947",
-                  "Movies with Music": 2,
-                  "General Movies": 31},
-
-                  {"Year": "1948",
-                   "Movies with Music": 9,
-                   "General Movies": 35},
-
-                   {"Year": "1949",
-                    "Movies with Music": 1,
-                    "General Movies": 26},
-
-                    {"Year": "1950",
-                     "Movies with Music": 2,
-                     "General Movies": 28},
-
-                     {"Year": "1951",
-                      "Movies with Music": 8,
-                      "General Movies": 30},
-
-                      {"Year": "1952",
-                       "Movies with Music": 0,
-                       "General Movies": 25},
-
-                       {"Year": "1953",
-                        "Movies with Music": 0,
-                        "General Movies": 34},
-
-                        {"Year": "1954",
-                         "Movies with Music": 9,
-                         "General Movies": 43},
-
-                         {"Year": "1955",
-                          "Movies with Music": 4,
-                          "General Movies": 29},
-
-                          {"Year": "1956",
-                           "Movies with Music": 6,
-                           "General Movies": 42},
-
-                           {"Year": "1957",
-                            "Movies with Music": 0,
-                            "General Movies": 34},
-
-                            {"Year": "1958",
-                             "Movies with Music": 4,
-                             "General Movies": 25},
-
-                             {"Year": "1959",
-                              "Movies with Music": 3,
-                              "General Movies": 35},
-
-                              {"Year": "1960",
-                               "Movies with Music": 1,
-                               "General Movies": 31},
-
-                               {"Year": "1961",
-                                "Movies with Music": 4,
-                                "General Movies": 34},
-
-                                {"Year": "1962",
-                                 "Movies with Music": 7,
-                                 "General Movies": 43},
-
-                                 {"Year": "1963",
-                                  "Movies with Music": 4,
-                                  "General Movies": 33},
-
-                                  {"Year": "1964",
-                                   "Movies with Music": 3,
-                                   "General Movies": 34},
-
-                                   {"Year": "1965",
-                                    "Movies with Music": 4,
-                                    "General Movies": 41},
-
-                                    {"Year": "1966",
-                                     "Movies with Music": 4,
-                                     "General Movies": 41},
-
-                                     {"Year": "1967",
-                                      "Movies with Music": 4,
-                                      "General Movies": 44},
-
-                                      {"Year": "1968",
-                                       "Movies with Music": 10,
-                                       "General Movies": 44},
-
-                                       {"Year": "1969",
-                                        "Movies with Music": 2,
-                                        "General Movies": 51},
-
-                                        {"Year": "1970",
-                                         "Movies with Music": 10,
-                                         "General Movies": 64},
-
-                                         {"Year": "1971",
-                                          "Movies with Music": 18,
-                                          "General Movies": 56},
-
-                                          {"Year": "1972",
-                                           "Movies with Music": 7,
-                                           "General Movies": 51},
-
-                                           {"Year": "1973",
-                                            "Movies with Music": 18,
-                                            "General Movies": 51},
-
-                                            {"Year": "1974",
-                                             "Movies with Music": 9,
-                                             "General Movies": 53},
-
-                                             {"Year": "1975",
-                                              "Movies with Music": 25,
-                                              "General Movies": 59},
-
-                                              {"Year": "1976",
-                                               "Movies with Music": 8,
-                                               "General Movies": 51},
-
-                                               {"Year": "1977",
-                                                "Movies with Music": 12,
-                                                "General Movies": 57},
-
-                                                {"Year": "1978",
-                                                 "Movies with Music": 13,
-                                                 "General Movies": 73},
-
-                                                 {"Year": "1979",
-                                                  "Movies with Music": 25,
-                                                  "General Movies": 86},
-
-                                                  {"Year": "1980",
-                                                   "Movies with Music": 33,
-                                                   "General Movies": 126},
-
-                                                   {"Year": "1981",
-                                                    "Movies with Music": 20,
-                                                    "General Movies": 125},
-
-                                                    {"Year": "1982",
-                                                     "Movies with Music": 19,
-                                                     "General Movies": 129},
-
-                                                     {"Year": "1983",
-                                                      "Movies with Music": 21,
-                                                      "General Movies": 133},
-
-                                                      {"Year": "1984",
-                                                       "Movies with Music": 36,
-                                                       "General Movies": 165},
-
-                                                       {"Year": "1985",
-                                                        "Movies with Music": 45,
-                                                        "General Movies": 171},
-
-                                                        {"Year": "1986",
-                                                         "Movies with Music": 16,
-                                                         "General Movies": 183},
-
-                                                         {"Year": "1987",
-                                                          "Movies with Music": 51,
-                                                          "General Movies": 202},
-
-                                                          {"Year": "1988",
-                                                           "Movies with Music": 40,
-                                                           "General Movies": 198},
-
-                                                           {"Year": "1989",
-                                                            "Movies with Music": 41,
-                                                            "General Movies": 193},
-
-                                                            {"Year": "1990",
-                                                             "Movies with Music": 52,
-                                                             "General Movies": 198},
-
-                                                             {"Year": "1991",
-                                                              "Movies with Music": 60,
-                                                              "General Movies": 187},
-
-                                                              {"Year": "1992",
-                                                               "Movies with Music": 78,
-                                                               "General Movies": 138},
-
-                                                               {"Year": "1993",
-                                                                "Movies with Music": 112,
-                                                                "General Movies": 144},
-
-                                                                {"Year": "1994",
-                                                                 "Movies with Music": 132,
-                                                                 "General Movies": 148},
-
-                                                                 {"Year": "1995",
-                                                                  "Movies with Music": 119,
-                                                                  "General Movies": 170},
-
-                                                                  {"Year": "1996",
-                                                                   "Movies with Music": 131,
-                                                                   "General Movies": 155},
-
-                                                                   {"Year": "1997",
-                                                                    "Movies with Music": 142,
-                                                                    "General Movies": 161},
-
-                                                                    {"Year": "1998",
-                                                                     "Movies with Music": 136,
-                                                                     "General Movies": 167},
-
-                                                                     {"Year": "1999",
-                                                                      "Movies with Music": 166,
-                                                                      "General Movies": 175},
-
-                                                                      {"Year": "2000",
-                                                                       "Movies with Music": 109,
-                                                                       "General Movies": 189},
-
-                                                                       {"Year": "2001",
-                                                                        "Movies with Music": 120,
-                                                                        "General Movies": 179},
-
-                                                                        {"Year": "2002",
-                                                                         "Movies with Music": 98,
-                                                                         "General Movies": 201},
-
-                                                                         {"Year": "2003",
-                                                                          "Movies with Music": 63,
-                                                                          "General Movies": 202},
-
-                                                                          {"Year": "2004",
-                                                                           "Movies with Music": 16,
-                                                                           "General Movies": 228},
-
-                                                                           {"Year": "2005",
-                                                                            "Movies with Music": 4,
-                                                                            "General Movies": 257},
-
-                                                                            {"Year": "2006",
-                                                                             "Movies with Music": 5,
-                                                                             "General Movies": 325},
-
-                                                                             {"Year": "2007",
-                                                                              "Movies with Music": 3,
-                                                                              "General Movies": 367},
-
-                                                                              {"Year": "2008",
-                                                                               "Movies with Music": 7,
-                                                                               "General Movies": 425},
-
-                                                                               {"Year": "2009",
-                                                                                "Movies with Music": 23,
-                                                                                "General Movies": 398},
-
-                                                                                {"Year": "2010",
-                                                                                 "Movies with Music": 10,
-                                                                                 "General Movies": 446},
-
-                                                                                 {"Year": "2011",
-                                                                                  "Movies with Music": 16,
-                                                                                  "General Movies": 556},
-
-                                                                                  {"Year": "2012",
-                                                                                   "Movies with Music": 86,
-                                                                                   "General Movies": 662},
-
-                                                                                   {"Year": "2013",
-                                                                                    "Movies with Music": 71,
-                                                                                    "General Movies": 800},
-
-                                                                                    {"Year": "2014",
-                                                                                     "Movies with Music": 94,
-                                                                                     "General Movies": 923},
-
-                                                                                     {"Year": "2015",
-                                                                                      "Movies with Music": 226,
-                                                                                      "General Movies": 1144},
-
-                                                                                      {"Year": "2016",
-                                                                                       "Movies with Music": 105,
-                                                                                       "General Movies": 967},
-
-                                                                                       {"Year": "2017",
-                                                                                        "Movies with Music": 57,
-                                                                                        "General Movies": 1111},
-
-                                                                                        {"Year": "2018",
-                                                                                         "Movies with Music": 27,
-                                                                                         "General Movies": 1371},
-
-                                                                                         {"Year": "2019",
-                                                                                          "Movies with Music": 4,
-                                                                                          "General Movies": 1835},
-
-];
-
-
-
-var svg3 = dimple.newSvg("#linechart","1200", "400");
-
-var myChart = new dimple.chart(svg3, general);
-  //myChart.setBounds(80, 40, "75%", "60%");
-var x = myChart.addTimeAxis("x", "Year","%Y","%Y");
-x.showGridlines = true;
-x.timeField = "Year";
-var y1 =myChart.addMeasureAxis("y", "Movies with Music");
-var y2 =myChart.addMeasureAxis(y1, "General Movies");
-
-x.timeInterval = 10;
-y1.ticks = 10;
-
-
-y1.title = "Number of Movies";
-
-/*y1.showGridlines=true;*/
-var s = myChart.addSeries("Movies containing music", dimple.plot.line,[x,y1]);
-var s2 = myChart.addSeries(" US movies produced", dimple.plot.line,[x,y2]);
-
-y1.tickFormat = "1000";
-y2.tickFormat = "1000";
-
-myChart.addLegend(600, 17, "right");
-
-myChart.defaultColors = [
-  new dimple.color("#A9261C", "#A9261C"), // purple
-  new dimple.color("#57575F", "#57575F"), // orange
-
-
-];
-
-myChart.setMargins("240px", "10px", "18%", "20px");
-
-
-
-//s.lineMarkers=true;
- myChart.draw(1500);
-
- window.onresize = function () {
-                       myChart.draw(0, true);
-                     };
 
 </script>
 <script src="js/d3-v3.js"></script>
