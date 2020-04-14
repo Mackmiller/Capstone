@@ -32,6 +32,13 @@
  font: 10.5px sans-serif;
  display: flex;
  justify-content: center;
+
+}
+
+.visualization_lolli {
+ font: 10.5px sans-serif;
+ display: flex;
+ justify-content: center;
 }
 
 .axis path,
