@@ -10,12 +10,16 @@
 </head>
 
   <body>
-
+    <ul>
+      <li><a href="composer.html">Composer</a></li>
+    </u>
 
     <div class="container3">
         <img src="img/capstone_header.png"/>
       </div>
-<p>We remember music from movies almost as often as we recall particular scenes from movies; music has a unique ability to heighten the emotional impact of a motion picture. As early as the 1890s, before audible dialogue was introduced into film, a pianist, organist or small orchestra would accompany silent films. Today’s movie soundtracks feature a wide range of original compositions, prewritten classical pieces and numerous music genres including pop and rock. This article will explore a data set that contains prewritten classical music that has appeared in the movies since the 1930s. Hopefully this article will provide a bit more clarity on some of the top classical pieces that may have been recognizable but nameless in the past!</p>
+<p>We remember music from movies almost as often as we recall particular scenes from movies; music has a unique ability to heighten the emotional impact of a motion picture. As early as the 1890s, before audible dialogue was introduced into film, a pianist, organist or small orchestra would accompany silent films. Today’s movie soundtracks feature a wide range of original compositions, prewritten classical pieces and numerous music genres including pop and rock. This article will explore a data set that contains prewritten classical music that has appeared in the movies since the 1930s. </p>
+
+<p>Let’s explore the impact that music has on a scene. Select a movie from the options below to listen to the movie’s original soundtrack, and then press the play buttons on the sidebar to hear how a different piece of music impacts the film scene.</p>
 <div class="div14">
 	<h2>Choose Your Own Soundtrack</h2>
 </div>
@@ -109,8 +113,8 @@
 
 
 	</div>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
+  <p>These five movies were selected because they were scenes in famous movies where the soundtrack dominated the scene, instead of character dialogue. The four additional classical tunes were chosen based on their recognizability factor (that moment where someone might say, “I have heard this before, but I don’t know what it is called”) and also because of their prominence in existing film soundtracks. </p>
+<p>Below, you can explore the ten top-played classical pieces that appear on film soundtracks. Are they mostly familiar to you? Which pieces are new? Can you immediately associate a movie scene with any of them?</p>
 <h2>Top Classical Pieces in the Movies 1930-2019</h2>
 
 <div class="center">
@@ -164,7 +168,37 @@
 			<audio src="music/shining.mp3" autoplay="" loop="" id="audioPlayer1">
 			</audio>
 		</section>
-    <p class="toptext">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p class="toptext">The top pieces of classical music in movies capture various emotions of the human experience, including joy, relief, humor, celebration and adventure. The number one piece of classical music used in the movies is The Blue Danube by Johann Strauss II. A total of 48 movie soundtracks contain this piece spanning from 1937 to 2015.</p>
+
+<div class="center">
+<div class="parent3">
+  <div class="div_1">
+    <img src="gifs/final_champagne.gif" height="300px" width="400px">
+  </div>
+  <div class="gif_text">
+  <div class="div_2">
+    <p><i>The Champagne Waltz</i> (1937): This movie is the earliest on record to feature the Blue Danube. The piece is used for a dancing scene while a royal overlooks the ballroom.</p>
+  </div>
+</div>
+</div>
+</div>
+<p>For many early movies, The Blue Danube functions as a background waltz for dancing or scenes of beauty and weightlessness, as shown above.</p>
+
+<div class="center">
+<div class="parent3">
+  <div class="div_1">
+    <img src="gifs/spiderman_final.gif" height="300px" width="400px">
+  </div>
+  <div class="gif_text">
+  <div class="div_2">
+    <p><i>The Amazing Spider-Man 2</i> (2014): This movie is one of the latest movies on record to use the Blue Danube. It serves as background music while the feature character gets tortured by scientists.</p>
+  </div>
+</div>
+</div>
+</div>
+
+<p>As the years go on, there seems to be a growing trend to use the music ironically or in juxtaposition to other elements of the movie scene such as dialogue or action, as shown above.</p>
+
 
     <div class="container3">
         <img src="img/composers.png"/>
@@ -175,9 +209,7 @@
   <div class="div01" id="composer_viz"></div>
 </div>
 </div>
-<p class="toptext">The top pieces of classical music in movies capture various emotions of the human experience- joy, relief, humor, celebration and adventure, just to name a few. The top composers for this list may come as no surprise- Mozart, Bach and Beethoven are considered to be the top classical composers of all time.</p>
-<p>The number one piece of classical music used in the movies is The Blue Danube by Johann Strauss II. A total of 48 movie soundtracks contain this piece spanning from 1937 to 2015. For many early movies, The Blue Danube functions as a background waltz for dancing or scenes of beauty and weightlessness.</p>
-<p>As the years go on, there seems to be a growing trend to use the music ironically or in juxtaposition to other elements of the movie scene such as dialogue or action.</p>
+<p class="toptext">The top composers for this list may come as no surprise- Mozart, Bach and Beethoven are considered to be the top classical composers of all time. In his life time, Mozart was thought to have written around 600 pieces, and almost 300 of them made it into movies. Interesting enough, the only composer of the three to make it to the top ten pieces of all time(mentioned above) was Bach, for his Toccata and Fugue in D minor, in 10th place. Wagner had two pieces in the top ten: 2nd place for his Bridal Chorus and 7th place for Ride of the Valkyries. Wagner, Puccini, and Verdi were prominently known as composers for opera, whose music lends itself well for film. </p>
 <h2>How Often Do Movies Use Classical Music?</h2>
 <div class="visualization" id="linechart"></div>
 
@@ -1355,7 +1387,6 @@ myChart.setMargins("240px", "10px", "18%", "20px");
      function changeVideo(number) {
        // change source to desired video
        videoPlayer.setAttribute("src", "video/" + video[number]);
-      document.getElementById("movieoutline").style.border = "2px black";
      }
 
      function changeMusic(number) {
@@ -1367,6 +1398,7 @@ myChart.setMargins("240px", "10px", "18%", "20px");
      function setMedia(videoNumber, musicNumber) {
        changeMusic(musicNumber);
        changeVideo(videoNumber);
+
      }
 
      function changeImage() {
@@ -1412,6 +1444,7 @@ myChart.setMargins("240px", "10px", "18%", "20px");
          // you can add changeMusic here for when you click on a button that's not the one actively playing. If you do that, you also need to know which position in the array-- that's gonna be another variable
          audioPlayer.play();
          videoPlayer.play();
+
 
        } else {
          // button is on. turn it off and switch to play.
