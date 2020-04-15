@@ -10,7 +10,12 @@
 </head>
 
   <body>
+    <nav>
+          <ul>
+            <li><a href="composer.html">Composer</a></li>
 
+          </u>
+    </nav>
     <div class="container3">
         <img src="img/capstone_header.png"/>
       </div>
@@ -729,7 +734,7 @@ d3.csv("https://raw.githubusercontent.com/Mackmiller/Capstone/master/data/lollip
 
   //variable 1
 
-//  var tooltip = d3.select("#lollipop")
+  var tooltip = d3.select("#lollipop")
      .append("div")
        .style("opacity", 0)
        .attr("class", "tooltip")
@@ -737,7 +742,7 @@ d3.csv("https://raw.githubusercontent.com/Mackmiller/Capstone/master/data/lollip
        .style("border-radius", "5px")
        .style("padding", "10px")
        .style("color", "white")
-      // .style("position", "absolute")
+       .style("position", "absolute")
 
 
        var showTooltip = function(d) {
@@ -747,14 +752,14 @@ d3.csv("https://raw.githubusercontent.com/Mackmiller/Capstone/master/data/lollip
     tooltip
       .style("opacity", 1)
       .html("Born: " + d.value1)
-      .style("left", (d3.mouse(this)[0]+30) + "px")
-      .style("top", (d3.mouse(this)[1]+30) + "px")
+      .style("left", (d3.mouse(this)[0]+5) + "px")
+      .style("top", (d3.mouse(this)[1]+5) + "px")
 
   }
   var moveTooltip = function(d) {
     tooltip
-      .style("left", (d3.mouse(this)[0]+30) + "px")
-      .style("top", (d3.mouse(this)[1]+30) + "px")
+      .style("left", (d3.mouse(this)[0]+5) + "px")
+      .style("top", (d3.mouse(this)[1]+5) + "px")
   }
   var hideTooltip = function(d) {
     tooltip
@@ -778,10 +783,10 @@ d3.csv("https://raw.githubusercontent.com/Mackmiller/Capstone/master/data/lollip
 
 //variable 2
 
-    //  var tooltip2 = d3.select("#lollipop")
+     var tooltip2 = d3.select("#lollipop")
          .append("div")
            .style("opacity", 0)
-        //  .style("position", "absolute")
+          .style("position", "absolute")
            .attr("class", "tooltip")
            .style("background-color", "black")
            .style("border-radius", "5px")
@@ -796,13 +801,13 @@ d3.csv("https://raw.githubusercontent.com/Mackmiller/Capstone/master/data/lollip
           .style("opacity", 1)
           .html("Died: " + d.value2)
           //.html("Died: " + d.value2)
-          .style("left", (d3.mouse(this)[0]+30) + "px")
-          .style("top", (d3.mouse(this)[1]+30) + "px")
+          .style("left", (d3.mouse(this)[0]+5) + "px")
+          .style("top", (d3.mouse(this)[1]+5) + "px")
       }
       var moveTooltip2 = function(d) {
         tooltip2
-          .style("left", (d3.mouse(this)[0]+30) + "px")
-          .style("top", (d3.mouse(this)[1]+30) + "px")
+          .style("left", (d3.mouse(this)[0]+5) + "px")
+          .style("top", (d3.mouse(this)[1]+5) + "px")
       }
       var hideTooltip2 = function(d) {
         tooltip2

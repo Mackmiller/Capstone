@@ -31,15 +31,14 @@
 
 .visualization {
  font: 10.5px sans-serif;
- display: flex;
- justify-content: center;
+ margin: 0 auto;
+ max-width: 800px;
+ position: relative;
 
 }
 
-.visualization_lolli {
- font: 10.5px sans-serif;
- display: flex;
- justify-content: center;
+#lollipop {
+   position: relative;
 }
 
 .axis path,

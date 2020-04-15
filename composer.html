@@ -9,16 +9,16 @@
 
 <script>
 
-// set the dimensions and margins of the graph
+// dimensions and margins
 var margin = {top: 10, right: 30, bottom: 30, left: 150},
-    width = 800 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    width6 = 800 - margin.left - margin.right,
+    height6 = 500 - margin.top - margin.bottom;
 
-// append the svg object to the body of the page
+// append the svg object to body
 var svg6 = d3.select("#lollipop")
   .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("width", width6 + margin.left + margin.right)
+    .attr("height", height6 + margin.top + margin.bottom)
   .append("g")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
@@ -30,14 +30,14 @@ d3.csv("https://raw.githubusercontent.com/Mackmiller/Capstone/master/data/lollip
   // Add X axis
   var x = d3.scaleLinear()
     .domain([1600, 1950])
-    .range([ 0, width]);
+    .range([ 0, width6]);
   svg6.append("g")
-    .attr("transform", "translate(0," + height + ")")
+    .attr("transform", "translate(0," + height6 + ")")
     .call(d3.axisBottom(x).tickFormat(d3.format('d')),)
 
   // Y axis
   var y = d3.scaleBand()
-    .range([ 0, height ])
+    .range([ 0, height6 ])
     .domain(data.map(function(d) { return d.group; }))
     .padding(1);
   svg6.append("g")
@@ -55,7 +55,7 @@ d3.csv("https://raw.githubusercontent.com/Mackmiller/Capstone/master/data/lollip
       .attr("stroke", "grey")
       .attr("stroke-width", "1px")
 
-  //variable 1
+  //variable 1 TOOLBOX
 
   var tooltip = d3.select("#lollipop")
      .append("div")
@@ -102,7 +102,7 @@ d3.csv("https://raw.githubusercontent.com/Mackmiller/Capstone/master/data/lollip
     .on("mousemove", moveTooltip )
     .on("mouseleave", hideTooltip )
 
-//variable 2
+//variable 2 TOOLBOX
 
       var tooltip2 = d3.select("#lollipop")
          .append("div")
