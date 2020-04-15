@@ -37,12 +37,21 @@
 
 }
 
+#beechart_viz {
+   position: relative;
+}
+
 #lollipop {
    position: relative;
 }
 
-#beechart_viz {
-   position: relative;
+.d3-tip {
+   font: 10.5px sans-serif;
+  font-weight: normal;
+  padding: 12px;
+  background: rgba(0, 0, 0, 1);
+  color: #fff;
+
 }
 
 .axis path,

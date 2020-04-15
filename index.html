@@ -922,10 +922,12 @@ var rect4 = svg.append("rect")
 </script>
 <script src="js/d3-v3.js"></script>
 <script src="js/force-chart.js"></script>
+<script src="js/d3-tip.js"></script>
+
 
  <script>
-   var margin = { top: 20, left: 150, bottom: 30, right: 50 },
-       width = 900 - margin.left - margin.right,
+   var margin = { top: 20, left: 140, bottom: 30, right: 50 },
+       width = 950 - margin.left - margin.right,
        height = 830 - margin.top - margin.bottom;
 
  var x = function(d) { return d.rating; },
@@ -933,12 +935,12 @@ var rect4 = svg.append("rect")
        area = function(d) { return d.budget; };
 
    var xScale = d3v3.scale.linear()
-         .domain([1930, 2020])
+         .domain([1930, 2019])
          .range([0, width]),
        yScale = d3v3.scale.ordinal()
          .domain(["Rigoletto: La donna e mobile", "Toccata and Fugue in D minor", "Nocturne No. 2 in E-flat major", "Ride of the Valkyries", "Pomp and Circumstance", "Messiah: Hallelujah", "William Tell: Overture", "Wedding March", "Bridal Chorus", "The Blue Danube"])
          .rangeBands([height, 0]),
-       areaScale = d3v3.scale.linear().range([0, 125]),
+      // areaScale = d3v3.scale.linear().range([0, 125]),
        colorScale = d3v3.scale.quantize()
         .domain([1930, 2020])
         .range(["#a9261c"]);
@@ -954,6 +956,13 @@ var rect4 = svg.append("rect")
    var xAxis = d3v3.svg.axis().scale(xScale).orient("bottom").tickFormat(d3v3.format('d')),
        yAxis = d3v3.svg.axis().scale(yScale).orient("left");
 
+       var tip = d3v3.tip()
+         .attr('class', 'd3-tip')
+         .offset([-10, 0])
+         .html(function(d) {
+           return "<span style='color:white'>" + d.title + "</span>";
+         })
+
    var bubbleChart = d3v3.forceChart()
     .size([width, height])
     .x(xValue)
@@ -968,6 +977,8 @@ var rect4 = svg.append("rect")
       .attr("height", height + margin.top + margin.bottom)
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+svg4.call(tip);
 
    d3v3.json("data/movies.json", function(error, movies) {
      if (error) throw error;
@@ -992,11 +1003,11 @@ var rect4 = svg.append("rect")
         .style("stroke", "grey");
 
         // Draw tooltip
-        var tooltip3 = d3v3.select("#beechart_viz")
+    /*    var tooltip3 = d3v3.select("#beechart_viz")
            .append("div")
              .style("opacity", 0)
              .style("position", "absolute")
-             .attr("class", "tooltip")
+             .attr("class", "tooltip3")
              .style("background-color", "black")
              .style("border-radius", "5px")
              .style("padding", "10px")
@@ -1026,7 +1037,7 @@ var rect4 = svg.append("rect")
             .duration(200)
             .style("opacity", 0)
         }
-
+*/
 
 
      // Draw bubbles
@@ -1035,9 +1046,11 @@ var rect4 = svg.append("rect")
       .selectAll(".node").append("circle")
         .attr("r", function(d) { return d.r0; })
         .attr("fill", colorValue)
-        .on("mouseover", showTooltip3 )
+        .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
+      /*  .on("mouseover", showTooltip3 )
       .on("mousemove", moveTooltip3 )
-      .on("mouseleave", hideTooltip3 )
+      .on("mouseleave", hideTooltip3 )*/
 
    });
 
