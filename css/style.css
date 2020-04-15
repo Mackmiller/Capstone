@@ -41,6 +41,10 @@
    position: relative;
 }
 
+#beechart_viz {
+   position: relative;
+}
+
 .axis path,
 .axis line {
   fill: none;

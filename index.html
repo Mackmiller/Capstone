@@ -972,17 +972,14 @@ var rect4 = svg.append("rect")
    d3v3.json("data/movies.json", function(error, movies) {
      if (error) throw error;
 
-     areaScale.domain([0,d3v3.max(movies, area)]);
+     //areaScale.domain([0,d3v3.max(movies, area)]);
 
      // Draw axes
      svg4.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + -27 + ")") //x axis location, -27 for top
         .call(xAxis)
-      .append("text")
-        .attr("dx", width)
-        .attr("dy", -6)
-        .style("text-anchor", "end")
+
 
 
 
@@ -994,7 +991,42 @@ var rect4 = svg.append("rect")
         .attr("stroke-dasharray", "1, 2")
         .style("stroke", "grey");
 
-     // Draw legend
+        // Draw tooltip
+        var tooltip3 = d3v3.select("#beechart_viz")
+           .append("div")
+             .style("opacity", 0)
+             .style("position", "absolute")
+             .attr("class", "tooltip")
+             .style("background-color", "black")
+             .style("border-radius", "5px")
+             .style("padding", "10px")
+             .style("color", "white")
+
+
+
+             var showTooltip3 = function(d) {
+          tooltip3
+            .transition()
+            .duration(200)
+          tooltip3
+            .style("opacity", 1)
+            .html(d.title)
+            .style("left", (d3v3.mouse(this)[0]+5) + "px")
+            .style("top", (d3v3.mouse(this)[1]+5) + "px")
+
+        }
+        var moveTooltip3 = function(d) {
+          tooltip3
+            .style("left", (d3v3.mouse(this)[0]+5) + "px")
+            .style("top", (d3v3.mouse(this)[1]+5) + "px")
+        }
+        var hideTooltip3 = function(d) {
+          tooltip3
+            .transition()
+            .duration(200)
+            .style("opacity", 0)
+        }
+
 
 
      // Draw bubbles
@@ -1003,6 +1035,9 @@ var rect4 = svg.append("rect")
       .selectAll(".node").append("circle")
         .attr("r", function(d) { return d.r0; })
         .attr("fill", colorValue)
+        .on("mouseover", showTooltip3 )
+      .on("mousemove", moveTooltip3 )
+      .on("mouseleave", hideTooltip3 )
 
    });
 
