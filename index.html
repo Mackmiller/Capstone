@@ -24,31 +24,31 @@
 
 		<div class="div3">
 		<section id="movie1" onclick="setMedia(0,4)">
-      <img id="movieoutline" src="img/shining.png" width="150" height="200">
+      <img id="movieoutline1" src="img/shining.png" width="150" height="200">
 		</section>
 	  </div>
 
 		<div class="div2">
 		<section id="movie2" onclick="setMedia(2,6)">
-			<img src="img/graduate.png" width="150" height="200">
+			<img id="movieoutline2" src="img/graduate.png" width="150" height="200">
 		</section>
 	  </div>
 
 		<div class="div4">
 		<section id="movie3" onclick="setMedia(1,5)">
-			<img src="img/oz.png" width="150" height="200">
+			<img id="movieoutline3" src="img/oz.png" width="150" height="200">
 		</section>
 	  </div>
 
 		<div class="div5">
 		<section id="movie4" onclick="setMedia(3,7)">
-			<img src="img/vendetta.png" width="150" height="200">
+			<img id="movieoutline4" src="img/vendetta.png" width="150" height="200">
 		</section>
 		</div>
 
     <div class="div15">
     <section id="movie5" onclick="setMedia(4,8)">
-      <img src="img/lionking.png" width="150" height="200">
+      <img id="movieoutline5" src="img/lionking.png" width="150" height="200">
     </section>
     </div>
 
@@ -116,7 +116,7 @@
 
 <div class="center">
 <div class="parent1">
-  <div class="div01" id="piece_viz"></div>
+  <div class="div01" id="piece1_viz"></div>
 
 
   <div class="div02">
@@ -584,7 +584,7 @@ var margin = {top: 0, right: 0, bottom: 40, left: 140},
     width = 1000 - margin.left - margin.right,
     height = 350 - margin.top - margin.bottom;
 // append the svg object to the body of the page
-var svg = d3.select("#piece_viz")
+var svg = d3.select("#piece1_viz")
   .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -1263,7 +1263,37 @@ svg4.call(tip);
      function changeVideo(number) {
        // change source to desired video
        videoPlayer.setAttribute("src", "video/" + video[number]);
-     }
+       //change outline for active video
+       if (video[number] = 0) {
+         document.getElementById("movieoutline1").style.border = "thick solid #a9261c";}
+        else {
+         document.getElementById("movieoutline1").style.border = "none";
+       }
+
+       if (video[number] = 1) {
+         document.getElementById("movieoutline3").style.border = "thick solid #a9261c";}
+        else {
+         document.getElementById("movieoutline3").style.border = "none";
+       }
+
+       if (video[number] = 2) {
+         document.getElementById("movieoutline2").style.border = "thick solid #a9261c";}
+        else {
+         document.getElementById("movieoutline2").style.border = "none";
+       }
+
+       if (video[number] = 3) {
+         document.getElementById("movieoutline4").style.border = "thick solid #a9261c";}
+        else {
+         document.getElementById("movieoutline4").style.border = "none";
+       }
+
+       if (video[number] = 4) {
+         document.getElementById("movieoutline5").style.border = "thick solid #a9261c";}
+        else {
+         document.getElementById("movieoutline5").style.border = "none";
+       }
+   }
 
      function changeMusic(number) {
        // change source to desired path
@@ -1304,6 +1334,7 @@ svg4.call(tip);
          buttons[i].setAttribute("src", "https://raw.githubusercontent.com/Mackmiller/Capstone/master/img/play.png");
        }
      }
+
 
      function controlMusic(buttonID, musicNumber) {
        // if you wanted to make this work for any button you'd probably turn the id you use into a variable.
