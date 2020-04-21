@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+<script src="js/d3.v4.js"></script>
+
 <style>
+.center {
+  display: flex;
+   justify-content: center;
+
+}
+
 .visualization {
  font: 10.5px sans-serif;
  margin: 0 auto;
@@ -9,164 +17,91 @@
 
 }
 
-#beechart_viz {
-   position: relative;
-}
 
 </style>
-
+<body>
 
 <!-- Create a div where the graph will take place -->
-<div class="visualization" id="beechart_viz"></div>
-
-<script src="js/d3-v3.js"></script>
-<script src="js/force-chart.js"></script>
+<div class="center">
+  <div class="visualization" id="piece1_viz"></div>
+</div>
+<div class="center">
+  <div class="visualization" id="composer_viz"></div>
+</div>
+</body>
 
  <script>
-   var margin = { top: 20, left: 150, bottom: 30, right: 50 },
-       width = 900 - margin.left - margin.right,
-       height = 830 - margin.top - margin.bottom;
+ var margin = {top: 0, right: 0, bottom: 40, left: 140},
+     width = 1000 - margin.left - margin.right,
+     height = 350 - margin.top - margin.bottom;
+ // append the svg object to the body of the page
 
- var x = function(d) { return d.rating; },
-       y = function(d) { return d.genre; },
-       area = function(d) { return d.budget; };
 
-   var xScale = d3v3.scale.linear()
-         .domain([1930, 2020])
-         .range([0, width]),
-       yScale = d3v3.scale.ordinal()
-         .domain(["Rigoletto: La donna e mobile", "Toccata and Fugue in D minor", "Nocturne No. 2 in E-flat major", "Ride of the Valkyries", "Pomp and Circumstance", "Messiah: Hallelujah", "William Tell: Overture", "Wedding March", "Bridal Chorus", "The Blue Danube"])
-         .rangeBands([height, 0]),
-       areaScale = d3v3.scale.linear().range([0, 125]),
-       colorScale = d3v3.scale.quantize()
-        .domain([1930, 2020])
-        .range(["#a9261c"]);
+ d3.csv("https://raw.githubusercontent.com/Mackmiller/DDJ/master/data/top_pieces.csv", function(data) {
 
-   var xValue = function(d) { return xScale(x(d)); },
-       yValue = function(d) { return yScale(y(d)) + yScale.rangeBand()/2; },
-       rValue = function(d) {
-         var A = 60;
-         return Math.sqrt(A / Math.PI);
-       },
-       colorValue = function(d) { return colorScale(x(d)); };
+   //Bars
+   svg.selectAll("myRect")
+     .data(data)
+     .enter()
+     .append("rect")
+     .attr("x", x(0) )
+     .attr("y", function(d) { return y(d.Piece); })
+     .attr("width", function(d) { return x(d.Value); })
+     .attr("height", y.bandwidth() )
+     .attr("fill", "#A9261C")
+ })
 
-   var xAxis = d3v3.svg.axis().scale(xScale).orient("bottom").tickFormat(d3v3.format('d')),
-       yAxis = d3v3.svg.axis().scale(yScale).orient("left");
 
-   var bubbleChart = d3v3.forceChart()
-    .size([width, height])
-    .x(xValue)
-    .y(yValue)
-    .r(rValue)
-    .xGravity(3)    // make the x-position more accurate
-    .yGravity(1/3); // ...and the y-position more flexible
+ var margin2 = {top: 0, right: 0, bottom: 40, left: 140},
+     width2 = 1000 - margin.left - margin.right,
+     height2 = 350 - margin.top - margin.bottom;
 
-    var svg4 = d3v3.select("#beechart_viz")
+ var svg2 = d3.select("#composer_viz")
    .append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+     .attr("width", width2 + margin.left + margin.right)
+     .attr("height", height2 + margin.top + margin.bottom)
+   .append("g")
+     .attr("transform",
+           "translate(" + margin.left + "," + margin.top + ")");
 
-   d3v3.json("data/movies2.json", function(error, movies) {
-     if (error) throw error;
+ d3.csv("https://raw.githubusercontent.com/Mackmiller/DDJ/master/data/top_composers.csv", function(data) {
 
-     areaScale.domain([0,d3v3.max(movies, area)]);
+ //x axis
+   var x = d3.scaleLinear()
+     .domain([0, 300])
+     .range([ 0, width2]);
+   svg2.append("g")
+     .attr("transform", "translate(0," + height2 + ")")
+     .call(d3.axisBottom(x).ticks(4))
 
-     // Draw axes
-     svg4.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + -27 + ")") //x axis location, -27 for top
-        .call(xAxis)
-      .append("text")
-        .attr("dx", width)
-        .attr("dy", -6)
-        .style("text-anchor", "end")
+   // Y axis
+   var y = d3.scaleBand()
+     .range([ 0, height2 ])
+     .domain(data.map(function(d) { return d.Composer; }))
+     .padding(.1);
 
-
-
-     svg4.append("g")
-        .attr("class", "y axis")
-        .call(yAxis)
-      .selectAll(".tick line")
-        .attr("x2", width)
-        .attr("stroke-dasharray", "1, 2")
-        .style("stroke", "grey");
-
-     // Draw tooltip
-     var tooltip = d3v3.select("#beechart_viz")
-        .append("div")
-          .style("opacity", 0)
-          .attr("class", "tooltip")
-          .style("background-color", "black")
-          .style("border-radius", "5px")
-          .style("padding", "10px")
-          .style("color", "white")
-          .style("position", "absolute")
+   svg2.append("g")
+     .attr("class", "axisWhite")
+     .call(d3.axisLeft(y).tickSize(0))
 
 
-          var showTooltip = function(d) {
-       tooltip
-         .transition()
-         .duration(200)
-       tooltip
-         .style("opacity", 1)
-         .html(d.title)
-         .style("left", (d3v3.mouse(this)[0]+5) + "px")
-         .style("top", (d3v3.mouse(this)[1]+5) + "px")
+   //Bars
+   svg2.selectAll("Rect2")
+     .data(data)
+     .enter()
+     .append("rect")
+     .attr("x", x(0) )
+     .attr("y", function(d) { return y(d.Composer); })
+     .attr("width2", function(d) { return x(d.Value); })
+     .attr("height2", y.bandwidth() )
+     .attr("fill", "#A9261C")
+ })
 
-     }
-     var moveTooltip = function(d) {
-       tooltip
-         .style("left", (d3v3.mouse(this)[0]+5) + "px")
-         .style("top", (d3v3.mouse(this)[1]+5) + "px")
-     }
-     var hideTooltip = function(d) {
-       tooltip
-         .transition()
-         .duration(200)
-         .style("opacity", 0)
-     }
+ svg2.append("text")
+                    .attr("x", 650)
+                    .attr("y", 275)
+                    .style("font-family", "sans-serif")
+                    .style("font-size", "10px")
+                    .text("Number of pieces");
 
-
-
-     // Draw bubbles
-     svg4.append("g").call(bubbleChart, movies)
-        .attr("class", "bubbles")
-      .selectAll(".node").append("circle")
-        .attr("r", function(d) { return d.r0; })
-        .attr("fill", colorValue)
-        .on("mouseover", showTooltip )
-      .on("mousemove", moveTooltip )
-      .on("mouseleave", hideTooltip )
-
-   });
-
-   //variable 1
-
-
-   function legend(selection) {
-     var legendData = [
-       { budget: 200000000, text: "$200 million", dy: 0 },
-       { budget: 100000000, text: "$100 million", dy: 20 },
-       { budget: 50000000, text: "$50 million", dy: 40 },
-       { budget: 10000000, text: "$10 million", dy: 60 }
-     ];
-
-
-
-     legend.selectAll(".item").data(legendData)
-      .enter().append("g")
-        .attr("transform", function(d) { return "translate(0," + d.dy + ")"; })
-        .each(function(d) {
-          d3v3.select(this).append("circle")
-            .attr("r", rValue(d))
-            .style("fill", "none")
-            .style("stroke", "slategrey");
-          d3v3.select(this).append("text")
-            .attr("dx", 10)
-            .attr("dy", 4)
-            .text(d.text);
-        });
-   }
  </script>

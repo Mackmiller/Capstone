@@ -4,13 +4,16 @@
   <meta charset="UTF-8" />
 <link rel="stylesheet" href="css/style.css">
 <script src="js/d3.v4.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dimple/2.3.0/dimple.latest.min.js"></script>
 
 
 </head>
 
   <body>
-
+    <nav>
+          <ul>
+            <li><a href="composer.html">Composer</a></li>
+          </u>
+    </nav>
     <div class="container3">
         <img src="img/capstone_header.png"/>
       </div>
@@ -202,9 +205,8 @@
       </div>
 <h2>Top Classical Composers in the Movies 1930-2019</h2>
 <div class="center">
-<div class="parent1">
-  <div class="div01" id="composer_viz"></div>
-</div>
+  <div class="visualization" id="composer_viz"></div>
+
 </div>
 <p class="toptext">The top composers for this list may come as no surprise- Mozart, Bach and Beethoven are considered to be the top classical composers of all time. In his life time, Mozart was thought to have written around 600 pieces, and almost 300 of them made it into movies. Interesting enough, the only composer of the three to make it to the top ten pieces of all time(mentioned above) was Bach, for his Toccata and Fugue in D minor, in 10th place. Wagner had two pieces in the top ten: 2nd place for his Bridal Chorus and 7th place for Ride of the Valkyries. Wagner, Puccini, and Verdi were prominently known as composers for opera, whose music lends itself well for film. </p>
 <h2>Classical Composers in Eras of Music</h2>
@@ -1264,36 +1266,39 @@ svg4.call(tip);
        // change source to desired video
        videoPlayer.setAttribute("src", "video/" + video[number]);
        //change outline for active video
-       if (video[number] = 0) {
+
+       if ((number) == (0)) {
          document.getElementById("movieoutline1").style.border = "thick solid #a9261c";}
         else {
-         document.getElementById("movieoutline1").style.border = "none";
+         document.getElementById("movieoutline1").style.border = "thick solid white";
        }
 
-       if (video[number] = 1) {
+       if ((number) == (1)) {
          document.getElementById("movieoutline3").style.border = "thick solid #a9261c";}
         else {
-         document.getElementById("movieoutline3").style.border = "none";
+         document.getElementById("movieoutline3").style.border = "thick solid white";
        }
 
-       if (video[number] = 2) {
+       if ((number) == (2)) {
          document.getElementById("movieoutline2").style.border = "thick solid #a9261c";}
         else {
-         document.getElementById("movieoutline2").style.border = "none";
+         document.getElementById("movieoutline2").style.border = "thick solid white";
        }
 
-       if (video[number] = 3) {
+       if ((number) == (3)) {
          document.getElementById("movieoutline4").style.border = "thick solid #a9261c";}
         else {
-         document.getElementById("movieoutline4").style.border = "none";
+         document.getElementById("movieoutline4").style.border = "thick solid white";
        }
 
-       if (video[number] = 4) {
+       if ((number) == (4)) {
          document.getElementById("movieoutline5").style.border = "thick solid #a9261c";}
         else {
-         document.getElementById("movieoutline5").style.border = "none";
+         document.getElementById("movieoutline5").style.border = "thick solid white";
        }
    }
+
+
 
      function changeMusic(number) {
        // change source to desired path
