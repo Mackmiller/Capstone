@@ -201,7 +201,7 @@ display: grid;
 grid-template-columns: .3fr repeat(5, .75fr);
 grid-template-rows: repeat(10, .079fr);
 grid-column-gap: 0px;
-grid-row-gap: 0px;
+grid-row-gap: 4px;
 }
 
 .musicButtonPlay {
@@ -223,6 +223,10 @@ grid-row-gap: 0px;
 
 .toptext {
   padding-top: 50px;
+}
+
+.composertext {
+  padding-top: 0px;
 }
 
 .marriage_audio {
