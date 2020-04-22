@@ -3,6 +3,18 @@
 <script src="js/d3.v4.js"></script>
 
 <style>
+
+h2 {
+  text-align: center;
+    font-family: Arial;
+  /*padding-left: 420px;
+  padding-right: 420px;*/
+  margin-left: auto;
+   margin-right: auto;
+   width: 20em;
+   padding-top: 25px;
+   min-width: 600px;;
+}
 .center {
   display: flex;
    justify-content: center;
@@ -14,6 +26,7 @@
  margin: 0 auto;
  max-width: 800px;
  position: relative;
+ grid-area: 1 / 1 / 2 / 2;
 
 }
 
@@ -22,7 +35,24 @@
  margin: 0 auto;
  max-width: 800px;
  position: relative;
+ grid-area: 1 / 2 / 2 / 3;
 
+}
+
+.parent_composer {
+display: grid;
+grid-template-columns: 0px 50px;
+grid-template-rows: 1fr;
+grid-column-gap: 0px;
+grid-row-gap: 0px;
+}
+
+.axisWhite line{
+  stroke: white;
+}
+
+.axisWhite path{
+  stroke: white;
 }
 
 #lollipop {
@@ -34,17 +64,20 @@
 <body>
 
 <!-- Create a div where the graph will take place -->
+<h2>The majority of the top ten composers come from the Romantic Era of music</h2>
 <div class="center">
+  <div class="parent_composer"
   <div class="visualization_composer1" id="composer_viz"></div>
 
 <div class="visualization" id="lollipop"></div>
+</div>
 
 </div>
 </body>
 
  <script>
 
-                    var margin = {top: 0, right: 40, bottom: 40, left: 140},
+                    var margin = {top: 20, right: 40, bottom: 40, left: 140},
                         width = 300 - margin.left - margin.right,
                         height = 300 - margin.top - margin.bottom;
 
@@ -62,9 +95,7 @@
    var x = d3.scaleLinear()
      .domain([0, 300])
      .range([ 0, width]);
-   svg2.append("g")
-     .attr("transform", "translate(0," + height + ")")
-     .call(d3.axisBottom(x).ticks(4))
+
 
    // Y axis
    var y = d3.scaleBand()
@@ -89,17 +120,21 @@
      .attr("fill", "#A9261C")
  })
 
+
+
  /*svg2.append("text")
                     .attr("x", 650)
                     .attr("y", 275)
                     .style("font-family", "sans-serif")
                     .style("font-size", "10px")
                     .text("Number of pieces");*/
+
+
 </script>
 <script>
-var margin = {top: 0, right: 40, bottom: 40, left: 140},
+var margin = {top: 20, right: 40, bottom: 40, left: 140},
     height6 = 300 - margin.top - margin.bottom,
-    width6 = 600 - margin.left - margin.right;
+    width6 = 800 - margin.left - margin.right;
 
 // append the svg object to the body of the page
 var svg6 = d3.select("#lollipop")
@@ -244,23 +279,23 @@ d3.csv("https://raw.githubusercontent.com/Mackmiller/Capstone/master/data/lollip
 //lines for eras
 svg6.append("line")
                 .attr("y1", (0))
-                   .attr("y2", (460))
-                   .attr("x1", (275))
-                   .attr("x2", (275))
+                   .attr("y2", (240))
+                   .attr("x1", (266))
+                   .attr("x2", (266))
                    .attr("stroke", "grey")
                    .style("stroke-dasharray", ("2, 3"));
                    svg6.append("line")
                                    .attr("y1", (0))
-                                      .attr("y2", (460))
-                                      .attr("x1", (400))
-                                      .attr("x2", (400))
+                                      .attr("y2", (240))
+                                      .attr("x1", (385))
+                                      .attr("x2", (385))
                                       .attr("stroke", "grey")
                                       .style("stroke-dasharray", ("2, 3"));
                                       svg6.append("line")
                                                       .attr("y1", (0))
-                                                         .attr("y2", (460))
-                                                         .attr("x1", (569))
-                                                         .attr("x2", (569))
+                                                         .attr("y2", (240))
+                                                         .attr("x1", (550))
+                                                         .attr("x2", (550))
                                                          .attr("stroke", "grey")
                                                          .style("stroke-dasharray", ("2, 3"));
 //rects for eras: baroque, classical, romantic, modern
@@ -297,8 +332,8 @@ var rect4 = svg.append("rect")
                             .style("fill-opacity", .1);*/
 //text headers (same order as above)
                             svg6.append("text")
-                                               .attr("x", 580)
-                                               .attr("y", 20)
+                                               .attr("x", 560)
+                                               .attr("y", 0)
                                                .style("font-family", "Arial")
                                                 .style("font-weight", "bold")
                                                .style("font-size", "14px")
@@ -306,22 +341,22 @@ var rect4 = svg.append("rect")
 
                                                svg6.append("text")
                                                                   .attr("x", 110)
-                                                                  .attr("y", 20)
+                                                                  .attr("y", 0)
                                                                   .style("font-family", "Arial")
                                                                    .style("font-weight", "bold")
                                                                   .style("font-size", "14px")
                                                                   .text("Baroque");
 
                                                                   svg6.append("text")
-                                                                                     .attr("x", 300)
-                                                                                     .attr("y", 20)
+                                                                                     .attr("x", 295)
+                                                                                     .attr("y", 0)
                                                                                      .style("font-family", "Arial")
                                                                                       .style("font-weight", "bold")
                                                                                      .style("font-size", "14px")
                                                                                      .text("Classical");
                                                                                      svg6.append("text")
-                                                                                                        .attr("x", 440)
-                                                                                                        .attr("y", 20)
+                                                                                                        .attr("x", 435)
+                                                                                                        .attr("y", 0)
                                                                                                         .style("font-family", "Arial")
                                                                                                          .style("font-weight", "bold")
                                                                                                         .style("font-size", "14px")
