@@ -138,7 +138,7 @@ grid-row-gap: 0px;
                  return y(d.Composer) + 15;
              })
              .attr("x", function (d) {
-                 return x(d.Value) - 20;
+                 return x(d.Value) - 50;
              })
              .attr("fill", "white")
              .style("font-family", "Arial")
@@ -146,6 +146,8 @@ grid-row-gap: 0px;
              .text(function (d) {
                  return d.Value;
              });
+
+
  })
 
 
@@ -360,6 +362,7 @@ var rect4 = svg.append("rect")
                             .style("fill", "#5D8487")
                             .style("fill-opacity", .1);*/
 //text headers (same order as above)
+
                             svg6.append("text")
                                                .attr("x", 560)
                                                .attr("y", 0)
@@ -389,6 +392,15 @@ var rect4 = svg.append("rect")
                                                                                                         .style("font-family", "Arial")
                                                                                                          .style("font-weight", "bold")
                                                                                                         .style("font-size", "14px")
-                                                                                                        .text("Romantic");
+                                                                                                        .text("Romantic")
+//text for legend for bar graph.
+                                                                                                        svg6.append("text")
+                                                                                                                           .attr("x", 65)
+                                                                                                                           .attr("y", 17)
+                                                                                                                           .style("font-family", "Arial")
+                                                                                                                            .style("font-weight", "bold")
+                                                                                                                           .style("font-size", "10px")
+                                                                                                                           .text("pieces");
+                                                                                                        ;
 
 </script>
