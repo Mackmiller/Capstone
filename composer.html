@@ -138,7 +138,7 @@ grid-row-gap: 0px;
                  return y(d.Composer) + 15;
              })
              .attr("x", function (d) {
-                 return x(d.Value) - 50;
+                 return x(d.Value) - 20;
              })
              .attr("fill", "white")
              .style("font-family", "Arial")
@@ -392,15 +392,16 @@ var rect4 = svg.append("rect")
                                                                                                         .style("font-family", "Arial")
                                                                                                          .style("font-weight", "bold")
                                                                                                         .style("font-size", "14px")
-                                                                                                        .text("Romantic")
+                                                                                                        .text("Romantic");
 //text for legend for bar graph.
                                                                                                         svg6.append("text")
-                                                                                                                           .attr("x", 65)
-                                                                                                                           .attr("y", 17)
+                                                                                                                           .attr("x", 5)
+                                                                                                                           .attr("y", 18)
                                                                                                                            .style("font-family", "Arial")
                                                                                                                             .style("font-weight", "bold")
                                                                                                                            .style("font-size", "10px")
-                                                                                                                           .text("pieces");
-                                                                                                        ;
+                                                                                                                           .style("fill", "white")
+                                                                                                                           .text("pieces:");
+
 
 </script>
