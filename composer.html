@@ -107,9 +107,22 @@ grid-row-gap: 0px;
      .attr("class", "axisWhite")
      .call(d3.axisLeft(y).tickSize(0))
 
+     var bars = svg2.selectAll(".bar")
+                .data(data)
+                .enter()
+                .append("g")
+
+            //append rects
+            bars.append("rect")
+                .attr("class", "bar")
+                .attr("x", x(0) )
+                .attr("y", function(d) { return y(d.Composer); })
+                .attr("width", function(d) { return x(d.Value); })
+                .attr("height", y.bandwidth() )
+                .attr("fill", "#A9261C");
 
    //Bars
-   svg2.selectAll("myRect2")
+   /*svg2.selectAll("myRect2")
      .data(data)
      .enter()
      .append("rect")
@@ -117,8 +130,25 @@ grid-row-gap: 0px;
      .attr("y", function(d) { return y(d.Composer); })
      .attr("width", function(d) { return x(d.Value); })
      .attr("height", y.bandwidth() )
-     .attr("fill", "#A9261C")
+     .attr("fill", "#A9261C")*/
+
+ bars.append("text")
+             .attr("class", "label")
+             .attr("y", function (d) {
+                 return y(d.Composer) + 15;
+             })
+             .attr("x", function (d) {
+                 return x(d.Value) - 20;
+             })
+             .attr("fill", "white")
+             .style("font-family", "Arial")
+             .style("font-size", "10px")
+             .text(function (d) {
+                 return d.Value;
+             });
  })
+
+
 
 
  /*svg2.append("text")
