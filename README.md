@@ -14,6 +14,8 @@ A data-driven story that explores the trends and patterns of classic music used 
 
 - Data was imported into Excel, with four columns: Movie Title, Movie Year, Piece Title, Piece Composer
 
+- NOTE: Data is not complete. Would recommend a direct scrape from IMDB for any further research.
+
 ## Research Questions
 
 After seeing the CSV worksheet, I now had a basis for creating my research questions:
