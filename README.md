@@ -8,7 +8,7 @@ A data-driven story that explores the trends and patterns of classic music used 
 
 ## Data
 
-- Data scraped in October 2019 from [Naxos Music Library](https://t.me/thecvdbot) using this Python script: [Naxos Python Script](https://www.naxos.com/musicinmovies.asp)
+- Data scraped in October 2019 from [Naxos Music Library](https://t.me/thecvdbot) using [this Python Script](https://www.naxos.com/musicinmovies.asp)
 
 - Data is derived from Naxos resources and IMDB.
 
