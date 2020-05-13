@@ -6,10 +6,6 @@
 
 A data-driven story that explores the trends and patterns of classic music used in movie soundtracks.
 
-Data scraped in October 2019 from [Naxos Music Library](https://t.me/thecvdbot) using this Python script: [Naxos Python Script](https://www.naxos.com/musicinmovies.asp)
-
-Data is derived from Naxos resources and IMDB.
-
 ## Data
 
 - Data scraped in October 2019 from [Naxos Music Library](https://t.me/thecvdbot) using this Python script: [Naxos Python Script](https://www.naxos.com/musicinmovies.asp)
@@ -20,7 +16,7 @@ Data is derived from Naxos resources and IMDB.
 
 ## Research Questions
 
-- After seeing the CSV worksheet, I now had a basis for creating my research questions:
+After seeing the CSV worksheet, I now had a basis for creating my research questions:
 1. What are the top pieces played in the movies?
 2. When were the most popular periods in modern history to use classical music in movies?
 3. Who are the most common composers and are they all represented in the top ten pieces?
