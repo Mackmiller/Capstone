@@ -51,3 +51,7 @@ This project was first designed in Adobe XD, and then built using HTML, CSS and 
 - [@albertocairo](https://twitter.com/AlbertoCairo) Advisor
 - [@lenymartinezd](https://twitter.com/lennymartinezd) Additional guidance
 
+## Blog
+
+A weekly blog was kept during the building process to document the progress/set backs of coding and visualizing, which can be accessed [here](https://www.mackmiller.design/capstone-journal).
+
