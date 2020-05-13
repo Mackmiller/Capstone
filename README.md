@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="CVD-19 Virus" src="img/capstone_header.png" />
+  <img alt="Title" src="img/capstone_header.png" />
 </p>
 
 # From Movie to Masterpiece: Top Classical Music in Cinema
