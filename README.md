@@ -39,6 +39,10 @@ Can exploring classical music in movies help advance music appreciation during a
 
 This interactive, data-driven story explores the trends and patterns of the top classical music used in movie soundtracks. It helps familiarize an audience of pop culture fans with the staples of classical music repertoire and establishes a lasting connection with the arts and culture.
 
+## Code
+
+This project was first designed in Adobe XD, and then built using HTML, CSS and D3.js. Pure Javascript was used for building the "Create Your Own Soundtrack" interactive element. Adobe Illustrator was used for several visualizations, and Photoshop was used for GIF creation.
+
 
 ## Contributors
 
